@@ -76,7 +76,7 @@ public class ImagePickerViewController: UIViewController {
     }
     
     private func setup(collectionView: UICollectionView) {
-        //collectionView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .systemBackground

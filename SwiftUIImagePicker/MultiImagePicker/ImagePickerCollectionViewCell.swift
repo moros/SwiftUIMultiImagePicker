@@ -44,13 +44,18 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView(frame: frame)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = true
+        imageView.layer.backgroundColor = UIColor.clear.cgColor
+        imageView.layer.borderColor = UIColor.clear.cgColor
         imageView.clipsToBounds = true
+        
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .clear
         
         self.contentView.addSubview(self.imageView)
         let constraints = self.contentView.constraintsToFill(otherView: self.imageView)

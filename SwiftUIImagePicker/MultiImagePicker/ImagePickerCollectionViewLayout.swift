@@ -14,7 +14,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     }
     
     var minimumInteritemSpacing: CGFloat {
-        return 4
+        return 6
     }
     
     var sizeOfItem: CGFloat = 0
