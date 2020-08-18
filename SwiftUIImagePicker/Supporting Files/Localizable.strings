@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  SwiftUIImagePicker
+
+  Created by dmason on 8/18/20.
+*/
+
+"ok.label" = "Ok";
+"imagepicker.maximum.selection" = "You cannot select more than %@ images.";
