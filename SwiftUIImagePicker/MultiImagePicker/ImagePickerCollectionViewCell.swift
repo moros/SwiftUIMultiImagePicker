@@ -131,6 +131,20 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func getImage(image: UIImage, backgroundColor: UIColor)->UIImage?{
+
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+        backgroundColor.setFill()
+        //UIRectFill(CGRect(origin: .zero, size: image.size))
+        let rect = CGRect(origin: .zero, size: image.size)
+        let path = UIBezierPath(arcCenter: CGPoint(x:rect.midX, y:rect.midY), radius: rect.midX, startAngle: 0, endAngle: 6.28319, clockwise: true)
+        path.fill()
+        image.draw(at: .zero)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     private func addOverlay(_ animated: Bool) {
         guard self.overlayView == nil && self.overlayImageView == nil else { return }
         
@@ -139,11 +153,10 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(overlayView)
         self.overlayView = overlayView
         
-        let overlayImageView = UIImageView(frame: frame)
-        overlayImageView.translatesAutoresizingMaskIntoConstraints = false
+        let overlayImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill")?.setBackground(color: .white))
         overlayImageView.contentMode = .center
-        overlayImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-        overlayImageView.alpha = 0
+        overlayImageView.translatesAutoresizingMaskIntoConstraints = false
+
         contentView.addSubview(overlayImageView)
         self.overlayImageView = overlayImageView
         
