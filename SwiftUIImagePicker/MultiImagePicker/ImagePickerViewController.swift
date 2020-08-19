@@ -159,7 +159,7 @@ extension ImagePickerViewController: UICollectionViewDelegate {
         
         let collectionViewItems = self.collectionView?.indexPathsForSelectedItems?.count ?? 0
         if self.maximumSelectionsAllowed <= collectionViewItems {
-            let message = "imagepicker.maximum.selection".localized("\(self.maximumSelectionsAllowed)")
+            let message = "imagepicker.maximum.selection".localized(withArguments: self.maximumSelectionsAllowed)
             let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: "ok.label".localized(), style: .cancel, handler: nil)
             alert.addAction(action)

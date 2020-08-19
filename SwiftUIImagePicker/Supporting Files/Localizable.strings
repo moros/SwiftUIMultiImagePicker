@@ -6,4 +6,8 @@
 */
 
 "ok.label" = "Ok";
-"imagepicker.maximum.selection" = "You cannot select more than %@ images.";
+"cancel.label" = "Cancel";
+"done.label" = "Done";
+"done.count.label" = "Done (%d)";
+"multi-imagepicker.nav.title.label" = "Photos";
+"imagepicker.maximum.selection" = "You cannot select more than %d images.";

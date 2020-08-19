@@ -12,8 +12,8 @@ extension String {
         NSLocalizedString(self, comment: comment ?? "")
     }
     
-    public func localized(_ args: CVarArg..., withComment comment: String? = nil) -> String {
+    public func localized(withArguments args: CVarArg..., withComment comment: String? = nil) -> String {
         let localizedStr = NSLocalizedString(self, comment: comment ?? "")
-        return String(format: localizedStr, args)
+        return String(format: localizedStr, locale: Locale.current, arguments: args)
     }
 }

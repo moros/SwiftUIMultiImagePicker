@@ -24,7 +24,7 @@ struct ContentView: View {
             .sheet(isPresented: self.$sheetPickerShown, content: {
                 NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
                     
-                })
+                }, usePhoneOnlyStackNavigation: true)
             })
         }
     }

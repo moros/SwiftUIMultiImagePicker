@@ -23,6 +23,7 @@
 		71862D4B24EC31C300402B64 /* NavigationMultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */; };
 		71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918024ED70A000013664 /* InMemoryImageCache.swift */; };
 		71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918224ED831100013664 /* UIImage+Drawing.swift */; };
+		71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918424EDBEFD00013664 /* View+ViewStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMultiImagePicker.swift; sourceTree = "<group>"; };
 		71F5918024ED70A000013664 /* InMemoryImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 		71F5918224ED831100013664 /* UIImage+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Drawing.swift"; sourceTree = "<group>"; };
+		71F5918424EDBEFD00013664 /* View+ViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewStyle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				71862D3524EB20DE00402B64 /* UIView+Helper.swift */,
 				71862D3F24EC181A00402B64 /* String+Localized.swift */,
 				71F5918224ED831100013664 /* UIImage+Drawing.swift */,
+				71F5918424EDBEFD00013664 /* View+ViewStyle.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				71862D4524EC21E000402B64 /* ContentView.swift in Sources */,
 				71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */,
 				71862D3624EB20DE00402B64 /* UIView+Helper.swift in Sources */,
+				71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */,
 				71862D3C24EB384A00402B64 /* ImagePickerControllerDelegate.swift in Sources */,
 				71862D3A24EB31CB00402B64 /* ImagePickerViewController.swift in Sources */,
 			);
