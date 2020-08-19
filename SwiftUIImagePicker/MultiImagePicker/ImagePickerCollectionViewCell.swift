@@ -154,7 +154,7 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         self.overlayView = overlayView
         
         let overlayImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill")?.setBackground(color: .white))
-        overlayImageView.contentMode = .center
+        overlayImageView.contentMode = .topLeft
         overlayImageView.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(overlayImageView)
