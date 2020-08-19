@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MultiImagePickerSheet: View {
+struct NavigationMultiImagePicker: View {
     @Binding var isPresented: Bool
     @State var doneAction: ([String]) -> ()
     @State var selectedIds = [String]()
@@ -45,7 +45,7 @@ struct MultiImagePickerSheet: View {
 #if DEBUG
 struct MultiImagePickerSheet_Previews: PreviewProvider {
     static var previews: some View {
-        MultiImagePickerSheet(isPresented: .constant(true), doneAction: { _ in
+        NavigationMultiImagePicker(isPresented: .constant(true), doneAction: { _ in
         })
     }
 }

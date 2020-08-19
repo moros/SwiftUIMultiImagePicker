@@ -22,7 +22,7 @@ struct ContentView: View {
                 Text("Show Sheet Image Picker")
             }
             .sheet(isPresented: self.$sheetPickerShown, content: {
-                MultiImagePickerSheet(isPresented: self.$sheetPickerShown, doneAction: { _ in
+                NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
                     
                 })
             })
