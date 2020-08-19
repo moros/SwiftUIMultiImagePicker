@@ -9,12 +9,17 @@ import UIKit
 
 class ImagePickerCollectionViewLayout: UICollectionViewLayout {
 
-    var estimatedImageSize: CGFloat {
-        return 120
+    let numberOfItemsAcross: Int
+    var minimumInteritemSpacing: CGFloat
+    
+    init(numberOfItemsAcross: Int, minimumInteritemSpacing: CGFloat) {
+        self.numberOfItemsAcross = numberOfItemsAcross
+        self.minimumInteritemSpacing = minimumInteritemSpacing
+        super.init()
     }
     
-    var minimumInteritemSpacing: CGFloat {
-        return 6
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     var sizeOfItem: CGFloat = 0
@@ -65,9 +70,11 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
             }.map { $0.value }
     }
     
+    /// these values represent the width and height of all the content,
+    /// not just the content that is currently visible.
+    ///
     open override var collectionViewContentSize: CGSize {
         guard let collectionView = self.collectionView else { return CGSize.zero }
-        let numberOfItemsAcross = Int(collectionView.bounds.width/estimatedImageSize)
         
         guard numberOfItemsAcross > 0 else { return CGSize.zero }
         let widthOfItem = collectionView.bounds.width/CGFloat(numberOfItemsAcross)
@@ -89,7 +96,6 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     
     private func updateItemSizes() {
         guard let collectionView = self.collectionView else { return }
-        let numberOfItemsAcross = Int(collectionView.bounds.width/estimatedImageSize)
         
         guard numberOfItemsAcross > 0 else { return }
         let widthOfItem = (collectionView.bounds.width - self.minimumInteritemSpacing)/CGFloat(numberOfItemsAcross)

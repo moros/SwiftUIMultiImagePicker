@@ -22,12 +22,14 @@ public class ImagePickerViewController: UIViewController {
     ///
     var maximumSelectionsAllowed: Int = -1
     
-    var photoAssets: PHFetchResult<PHAsset> = PHFetchResult()
-    var selectedAssetIds: [String] = []
+    /// Defends expected width size of image.
+    var numberOfPhotosInRow: Int = 3
     
-    internal var collectionViewLayout: ImagePickerCollectionViewLayout? {
-        return collectionView?.collectionViewLayout as? ImagePickerCollectionViewLayout
-    }
+    /// Minimum amount of spacing between images.
+    var imageMinimumInteritemSpacing: CGFloat = 6
+    
+    private var photoAssets: PHFetchResult<PHAsset> = PHFetchResult()
+    private var selectedAssetIds: [String] = []
     
     internal lazy var fetchOptions: PHFetchOptions = {
         let fetchOptions = PHFetchOptions()
@@ -56,7 +58,7 @@ public class ImagePickerViewController: UIViewController {
         guard let view = view else { return }
         fetchPhotos()
         
-        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: ImagePickerCollectionViewLayout())
+        let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: ImagePickerCollectionViewLayout(numberOfItemsAcross: self.numberOfPhotosInRow, minimumInteritemSpacing: self.imageMinimumInteritemSpacing))
         setup(collectionView: collectionView)
         view.addSubview(collectionView)
         self.collectionView = collectionView
@@ -142,6 +144,14 @@ extension ImagePickerViewController: UICollectionViewDelegate {
         self.delegate?.imagePicker?(self, didPickAssetIdentifiers: self.selectedAssetIds)
     }
     
+    /// When user tries to select content, this method is triggered
+    /// to determine if user can select item at the specified index
+    /// path.
+    ///
+    /// - Parameter collectionView: the `UICollectionView`
+    /// - Parameter indexPath: the `IndexPath`
+    /// - Returns: Returns the boolean indicating whether item will be selected.
+    ///
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell,
             cell.imageView.image != nil else { return false }
@@ -165,10 +175,10 @@ extension ImagePickerViewController: UICollectionViewDataSource {
     
     /// Returns Collection View Cell for item at `IndexPath`
     ///
-    /// - Parameters:
-    ///   - collectionView: the `UICollectionView`
-    ///   - indexPath: the `IndexPath`
+    /// - Parameter collectionView: the `UICollectionView`
+    /// - Parameter indexPath: the `IndexPath`
     /// - Returns: Returns the `UICollectionViewCell`
+    ///
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let layoutAttributes = collectionView.collectionViewLayout.layoutAttributesForItem(at: indexPath),
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagePickerCollectionViewCell.reuseId, for: indexPath) as? ImagePickerCollectionViewCell else { return UICollectionViewCell() }
@@ -182,10 +192,10 @@ extension ImagePickerViewController: UICollectionViewDataSource {
     
     /// Returns the number of items in a given section
     ///
-    /// - Parameters:
-    ///   - collectionView: the `UICollectionView`
-    ///   - section: the given section of the `UICollectionView`
+    /// - Parameter collectionView: the `UICollectionView`
+    /// - Parameter section: the given section of the `UICollectionView`
     /// - Returns: Returns an `Int` for the number of rows.
+    ///
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoAssets.count
     }

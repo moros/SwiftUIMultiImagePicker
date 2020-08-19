@@ -20,31 +20,33 @@ struct MultiImagePickerSheet: View {
                 })
             }
             .navigationBarTitle("Photos", displayMode: .inline)
-            .navigationBarItems(
-                leading:
-                Button(action: {
-                    print("Close clicked!")
-                    self.isPresented = false
-                }, label: {
-                    Text("Close")
-                }),
-                trailing:
-                Button(action: {
-                    print("Done clicked!")
-                    
-                    self.isPresented = false
-                    self.doneAction(self.selectedIds)
-                }, label: {
-                    Text("Done (\(selectedIds.count))").bold()
-                }).disabled(selectedIds.count == 0)
-            )
+            .navigationBarItems(leading: self.leadingButton(), trailing: self.trailingButton())
         }
+    }
+    
+    private func leadingButton() -> some View {
+        return Button(action: {
+            self.isPresented = false
+        }, label: {
+            Text("Close")
+        })
+    }
+    
+    private func trailingButton() -> some View {
+        return Button(action: {
+            self.isPresented = false
+            self.doneAction(self.selectedIds)
+        }, label: {
+            Text("Done (\(selectedIds.count))").bold()
+        }).disabled(selectedIds.count == 0)
     }
 }
 
+#if DEBUG
 struct MultiImagePickerSheet_Previews: PreviewProvider {
     static var previews: some View {
         MultiImagePickerSheet(isPresented: .constant(true), doneAction: { _ in
         })
     }
 }
+#endif

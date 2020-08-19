@@ -20,7 +20,6 @@
 		71862D4024EC181A00402B64 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D3F24EC181A00402B64 /* String+Localized.swift */; };
 		71862D4524EC21E000402B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4424EC21E000402B64 /* ContentView.swift */; };
 		71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4624EC23C000402B64 /* MultiImagePicker.swift */; };
-		71862D4924EC30DF00402B64 /* AssetSelectablePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4824EC30DF00402B64 /* AssetSelectablePreferenceKey.swift */; };
 		71862D4B24EC31C300402B64 /* MultiImagePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 		71862D3F24EC181A00402B64 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		71862D4424EC21E000402B64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71862D4624EC23C000402B64 /* MultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePicker.swift; sourceTree = "<group>"; };
-		71862D4824EC30DF00402B64 /* AssetSelectablePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectablePreferenceKey.swift; sourceTree = "<group>"; };
 		71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,7 +111,6 @@
 				71862D3B24EB384A00402B64 /* ImagePickerControllerDelegate.swift */,
 				71862D4624EC23C000402B64 /* MultiImagePicker.swift */,
 				71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */,
-				71862D4824EC30DF00402B64 /* AssetSelectablePreferenceKey.swift */,
 			);
 			path = MultiImagePicker;
 			sourceTree = "<group>";
@@ -190,7 +187,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				71862D4024EC181A00402B64 /* String+Localized.swift in Sources */,
-				71862D4924EC30DF00402B64 /* AssetSelectablePreferenceKey.swift in Sources */,
 				71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */,
 				71862D3424EB194700402B64 /* ImagePickerCollectionViewCell.swift in Sources */,
 				71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */,

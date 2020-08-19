@@ -15,7 +15,7 @@ struct ContentView: View {
         VStack {
             MultiImagePicker(onSelected: { ids in
                 print(ids)
-            })
+            }, photosInRow: 4)
             Button(action: {
                 self.sheetPickerShown = true
             }) {
