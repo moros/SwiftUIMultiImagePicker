@@ -21,6 +21,7 @@
 		71862D4524EC21E000402B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4424EC21E000402B64 /* ContentView.swift */; };
 		71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4624EC23C000402B64 /* MultiImagePicker.swift */; };
 		71862D4B24EC31C300402B64 /* MultiImagePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */; };
+		71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918024ED70A000013664 /* InMemoryImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		71862D4424EC21E000402B64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71862D4624EC23C000402B64 /* MultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePicker.swift; sourceTree = "<group>"; };
 		71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerSheet.swift; sourceTree = "<group>"; };
+		71F5918024ED70A000013664 /* InMemoryImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				71862D3B24EB384A00402B64 /* ImagePickerControllerDelegate.swift */,
 				71862D4624EC23C000402B64 /* MultiImagePicker.swift */,
 				71862D4A24EC31C300402B64 /* MultiImagePickerSheet.swift */,
+				71F5918024ED70A000013664 /* InMemoryImageCache.swift */,
 			);
 			path = MultiImagePicker;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */,
 				71862D3824EB313100402B64 /* ImagePickerCollectionViewLayout.swift in Sources */,
 				71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */,
+				71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */,
 				71862D4B24EC31C300402B64 /* MultiImagePickerSheet.swift in Sources */,
 				71862D4524EC21E000402B64 /* ContentView.swift in Sources */,
 				71862D3624EB20DE00402B64 /* UIView+Helper.swift in Sources */,

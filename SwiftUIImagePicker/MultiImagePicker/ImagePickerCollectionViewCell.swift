@@ -38,6 +38,7 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
     
     weak var overlayView: UIView?
     weak var overlayImageView: UIImageView?
+    
     private var imageRequestID: PHImageRequestID?
     
     lazy var imageView: UIImageView = {
@@ -95,6 +96,11 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
             return
         }
         
+        if let cachedImage = InMemoryImageCache.shared.image(forKey: asset.localIdentifier) {
+            self.imageView.image = cachedImage
+            return
+        }
+        
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.resizeMode = .fast
@@ -108,6 +114,10 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         self.imageRequestID = manager.requestImage(for: asset, targetSize: newSize, contentMode: .aspectFill, options: options, resultHandler: { [weak self] (result, _) in
             guard self?.indexPath?.item == indexPath.item else { return }
             //self?.activityIndicator.stopAnimating()
+            
+            if result != nil {
+                InMemoryImageCache.shared.store(image: result!, forKey: asset.localIdentifier)
+            }
             self?.imageRequestID = nil
             self?.imageView.image = result
         })
