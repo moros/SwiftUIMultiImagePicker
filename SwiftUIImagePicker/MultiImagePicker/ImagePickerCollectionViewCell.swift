@@ -42,6 +42,7 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: frame)
+        imageView.image = UIImage(named: "placeholder")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
@@ -70,7 +71,7 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = nil
+        imageView.image = UIImage(named: "placeholder")
         
         let manager = PHImageManager.default()
         guard let imageRequestID = self.imageRequestID else { return }
