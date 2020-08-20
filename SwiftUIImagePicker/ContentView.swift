@@ -12,6 +12,9 @@ struct ContentView: View {
     @State var sheetPickerShown = false
     
     var body: some View {
+//        NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
+//
+//        }, usePhoneOnlyStackNavigation: true)
         VStack {
             MultiImagePicker(onSelected: { ids in
                 print(ids)
@@ -22,8 +25,8 @@ struct ContentView: View {
                 Text("Show Sheet Image Picker")
             }
             .sheet(isPresented: self.$sheetPickerShown, content: {
-                NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
-                    
+                NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { ids in
+                    print("ids from nav picker: \(ids)")
                 }, usePhoneOnlyStackNavigation: true)
             })
         }

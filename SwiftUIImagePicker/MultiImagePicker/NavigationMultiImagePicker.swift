@@ -5,11 +5,16 @@
 //  Created by dmason on 8/18/20.
 //
 
+import Introspect
 import SwiftUI
+import UIKit
 
 struct NavigationMultiImagePicker: View {
     @Binding var isPresented: Bool
-    @State var doneAction: ([String]) -> ()
+    var doneAction: ([String]) -> ()
+    
+    private var albumButton: UIButton = UIButton(type: .system)
+    private var albumsViewModel: AlbumsViewModel = AlbumsViewModel()
     
     /// The PHAsset localIdentifier's selected by user.
     ///
@@ -22,13 +27,32 @@ struct NavigationMultiImagePicker: View {
     ///
     var usePhoneOnlyStackNavigation: Bool = false
     
+    init(isPresented: Binding<Bool>, doneAction: @escaping ([String]) -> (), usePhoneOnlyStackNavigation: Bool = false) {
+        self.doneAction = doneAction
+        self._isPresented = isPresented
+        self.usePhoneOnlyStackNavigation = usePhoneOnlyStackNavigation
+    }
+    
     var body: some View {
         NavigationView {
             MultiImagePicker(onSelected: { ids in
                 self.selectedIds = ids
             })
-            .navigationBarTitle("multi-imagepicker.nav.title.label", displayMode: .inline)
+            
+            // set title to empty string, to force proper nav layout; otherwise,
+            // adding titleView through introspect adds extra space under it.
+            .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: self.leadingButton(), trailing: self.trailingButton())
+            .introspectNavigationController { navigationController in
+                self.albumsViewModel.navigationController = navigationController
+                self.albumButton.semanticContentAttribute = .forceRightToLeft
+                self.albumButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                self.albumButton.setTitleColor(self.albumButton.tintColor, for: .normal)
+                self.albumButton.setTitle("multi-imagepicker.nav.title.label".localized(), for: .normal)
+                self.albumButton.addTarget(self.albumsViewModel, action: #selector(AlbumsViewModel.albumsButtonPressed(_:)), for: .touchUpInside)
+                
+                navigationController.viewControllers.first?.navigationItem.titleView = self.albumButton
+            }
         }
         .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
     }

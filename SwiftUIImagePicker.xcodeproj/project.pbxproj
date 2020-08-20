@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,17 @@
 		71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918024ED70A000013664 /* InMemoryImageCache.swift */; };
 		71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918224ED831100013664 /* UIImage+Drawing.swift */; };
 		71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918424EDBEFD00013664 /* View+ViewStyle.swift */; };
+		71F5918A24EEB57F00013664 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 71F5918924EEB57F00013664 /* Introspect */; };
+		71F5918C24EEBAD000013664 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918B24EEBAD000013664 /* AlbumsViewController.swift */; };
+		71F5918E24EEBB4D00013664 /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */; };
+		71F5919024EED56D00013664 /* DropdownTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */; };
+		71F5919224EED60600013664 /* DropdownAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919124EED60600013664 /* DropdownAnimator.swift */; };
+		71F5919424EED7A300013664 /* DropdownPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919324EED7A300013664 /* DropdownPresentationController.swift */; };
+		71F5919624EF11B000013664 /* DropdownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919524EF11B000013664 /* DropdownBackgroundView.swift */; };
+		71F5919824EF1B7900013664 /* DropdownConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919724EF1B7900013664 /* DropdownConfiguration.swift */; };
+		71F5919A24EF259E00013664 /* DropdownCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919924EF259E00013664 /* DropdownCompatible.swift */; };
+		71F5919C24EF263B00013664 /* Dropdown+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919B24EF263B00013664 /* Dropdown+UIView.swift */; };
+		71F5919E24EF318200013664 /* Dropdown+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +57,16 @@
 		71F5918024ED70A000013664 /* InMemoryImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 		71F5918224ED831100013664 /* UIImage+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Drawing.swift"; sourceTree = "<group>"; };
 		71F5918424EDBEFD00013664 /* View+ViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewStyle.swift"; sourceTree = "<group>"; };
+		71F5918B24EEBAD000013664 /* AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
+		71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewModel.swift; sourceTree = "<group>"; };
+		71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTransitionDelegate.swift; sourceTree = "<group>"; };
+		71F5919124EED60600013664 /* DropdownAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownAnimator.swift; sourceTree = "<group>"; };
+		71F5919324EED7A300013664 /* DropdownPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownPresentationController.swift; sourceTree = "<group>"; };
+		71F5919524EF11B000013664 /* DropdownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownBackgroundView.swift; sourceTree = "<group>"; };
+		71F5919724EF1B7900013664 /* DropdownConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownConfiguration.swift; sourceTree = "<group>"; };
+		71F5919924EF259E00013664 /* DropdownCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownCompatible.swift; sourceTree = "<group>"; };
+		71F5919B24EF263B00013664 /* Dropdown+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dropdown+UIView.swift"; sourceTree = "<group>"; };
+		71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dropdown+UIViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71F5918A24EEB57F00013664 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +135,16 @@
 		71862D4324EC216900402B64 /* MultiImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				71F5918B24EEBAD000013664 /* AlbumsViewController.swift */,
+				71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */,
+				71F5919124EED60600013664 /* DropdownAnimator.swift */,
+				71F5919524EF11B000013664 /* DropdownBackgroundView.swift */,
+				71F5919924EF259E00013664 /* DropdownCompatible.swift */,
+				71F5919724EF1B7900013664 /* DropdownConfiguration.swift */,
+				71F5919324EED7A300013664 /* DropdownPresentationController.swift */,
+				71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */,
+				71F5919B24EF263B00013664 /* Dropdown+UIView.swift */,
+				71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */,
 				71862D3324EB194700402B64 /* ImagePickerCollectionViewCell.swift */,
 				71862D3724EB313100402B64 /* ImagePickerCollectionViewLayout.swift */,
 				71862D3924EB31CB00402B64 /* ImagePickerViewController.swift */,
@@ -140,6 +172,9 @@
 			dependencies = (
 			);
 			name = SwiftUIImagePicker;
+			packageProductDependencies = (
+				71F5918924EEB57F00013664 /* Introspect */,
+			);
 			productName = SwiftUIImagePicker;
 			productReference = 71862D1C24EB17DB00402B64 /* SwiftUIImagePicker.app */;
 			productType = "com.apple.product-type.application";
@@ -168,6 +203,9 @@
 				Base,
 			);
 			mainGroup = 71862D1324EB17DB00402B64;
+			packageReferences = (
+				71F5918824EEB57F00013664 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+			);
 			productRefGroup = 71862D1D24EB17DB00402B64 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -195,20 +233,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71F5919C24EF263B00013664 /* Dropdown+UIView.swift in Sources */,
+				71F5918E24EEBB4D00013664 /* AlbumsViewModel.swift in Sources */,
 				71862D4024EC181A00402B64 /* String+Localized.swift in Sources */,
+				71F5919024EED56D00013664 /* DropdownTransitionDelegate.swift in Sources */,
 				71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */,
 				71862D3424EB194700402B64 /* ImagePickerCollectionViewCell.swift in Sources */,
 				71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */,
+				71F5919E24EF318200013664 /* Dropdown+UIViewController.swift in Sources */,
+				71F5919A24EF259E00013664 /* DropdownCompatible.swift in Sources */,
 				71862D3824EB313100402B64 /* ImagePickerCollectionViewLayout.swift in Sources */,
+				71F5919624EF11B000013664 /* DropdownBackgroundView.swift in Sources */,
+				71F5919424EED7A300013664 /* DropdownPresentationController.swift in Sources */,
 				71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */,
 				71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */,
+				71F5919224EED60600013664 /* DropdownAnimator.swift in Sources */,
 				71862D4B24EC31C300402B64 /* NavigationMultiImagePicker.swift in Sources */,
 				71862D4524EC21E000402B64 /* ContentView.swift in Sources */,
 				71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */,
+				71F5919824EF1B7900013664 /* DropdownConfiguration.swift in Sources */,
 				71862D3624EB20DE00402B64 /* UIView+Helper.swift in Sources */,
 				71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */,
 				71862D3C24EB384A00402B64 /* ImagePickerControllerDelegate.swift in Sources */,
 				71862D3A24EB31CB00402B64 /* ImagePickerViewController.swift in Sources */,
+				71F5918C24EEBAD000013664 /* AlbumsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +446,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71F5918824EEB57F00013664 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71F5918924EEB57F00013664 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71F5918824EEB57F00013664 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71862D1424EB17DB00402B64 /* Project object */;
 }
