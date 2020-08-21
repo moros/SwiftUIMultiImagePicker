@@ -28,8 +28,21 @@ public class AlbumSettings: NSObject {
     ///  - PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
     ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
     ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
-    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
-    public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
+    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options)
+    ///
+    public lazy var fetchAlbums: [PHFetchResult<PHAssetCollection>] = [
+        PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options),
+    ]
+    
+    /// Fetch results for asset collections you want to present to the user
+    /// Some other fetch results that you might wanna use:
+    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
+    ///  - PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
+    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
+    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
+    ///  - PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options)
+    ///
+    public lazy var fetchFavorites: [PHFetchResult<PHAssetCollection>] = [
         PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
     ]
 }

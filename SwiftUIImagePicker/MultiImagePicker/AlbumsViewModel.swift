@@ -52,13 +52,22 @@ public class AlbumsViewModel: NSObject {
     }
     
     lazy var albums: [PHAssetCollection] = {
+        
         // We don't want collections without assets.
         // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
         // But that doesn't work... This seems suuuuuper ineffective...
         let fetchOptions = self.assetSettings.fetchOptions.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
-
-        return self.albumSettings.fetchResults.filter {
+        
+        var items: [PHAssetCollection] = []
+        items.append(contentsOf: self.filterCollection(self.albumSettings.fetchFavorites, fetchOptions: fetchOptions))
+        items.append(contentsOf: self.filterCollection(self.albumSettings.fetchAlbums, fetchOptions: fetchOptions))
+        
+        return items
+    }()
+    
+    private func filterCollection(_ collection: [PHFetchResult<PHAssetCollection>], fetchOptions: PHFetchOptions) -> [PHAssetCollection] {
+        return collection.filter {
             $0.count > 0
         }.flatMap {
             $0.objects(at: IndexSet(integersIn: 0..<$0.count))
@@ -68,7 +77,7 @@ public class AlbumsViewModel: NSObject {
             let assetsFetchResult = PHAsset.fetchAssets(in: $0, options: fetchOptions)
             return assetsFetchResult.count > 0
         }
-    }()
+    }
     
     private func rotateButtonArrow(_ button: UIButton) {
         UIView.animate(withDuration: 0.3) {
