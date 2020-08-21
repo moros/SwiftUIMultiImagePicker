@@ -28,14 +28,11 @@ public class ImagePickerViewController: UIViewController {
     /// Minimum amount of spacing between images.
     var imageMinimumInteritemSpacing: CGFloat = 6
     
+    /// Global asset settings object
+    var assetSettings: AssetSettings = AssetSettings.shared
+    
     private var photoAssets: PHFetchResult<PHAsset> = PHFetchResult()
     private var selectedAssetIds: [String] = []
-    
-    internal lazy var fetchOptions: PHFetchOptions = {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        return fetchOptions
-    }()
     
     public required init() {
         super.init(nibName: nil, bundle: nil)
@@ -90,7 +87,7 @@ public class ImagePickerViewController: UIViewController {
     private func fetchPhotos() {
         requestPhotoAccessIfNeeded(PHPhotoLibrary.authorizationStatus())
         
-        photoAssets = PHAsset.fetchAssets(with: fetchOptions)
+        photoAssets = PHAsset.fetchAssets(with: self.assetSettings.fetchOptions)
         collectionView?.reloadData()
     }
     
@@ -98,7 +95,7 @@ public class ImagePickerViewController: UIViewController {
         guard status == .notDetermined else { return }
         PHPhotoLibrary.requestAuthorization { [weak self] (_) in
             DispatchQueue.main.async { [weak self] in
-                self?.photoAssets = PHAsset.fetchAssets(with: self?.fetchOptions)
+                self?.photoAssets = PHAsset.fetchAssets(with: self?.assetSettings.fetchOptions)
                 self?.collectionView?.reloadData()
             }
         }

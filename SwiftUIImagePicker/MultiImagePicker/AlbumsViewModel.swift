@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import Photos
 import UIKit
 
 public class AlbumsViewModel: NSObject {
     
+    var albumSettings: AlbumSettings = AlbumSettings.shared
+    var assetSettings: AssetSettings = AssetSettings.shared
     var navigationController: UINavigationController? = nil
     private var transitionDelegate: DropdownTransitionDelegate? = nil
     
@@ -24,7 +27,8 @@ public class AlbumsViewModel: NSObject {
     
     @objc func albumsButtonPressed(_ sender: UIButton) {
 
-        let controller = AlbumsViewController()        
+        let controller = AlbumsViewController()
+        controller.albums = self.albums
         controller.onDismiss = {
             self.rotateButtonArrow(sender)
         }
@@ -46,6 +50,25 @@ public class AlbumsViewModel: NSObject {
         
         self.navigationController?.present(controller, animated: true, completion: nil)
     }
+    
+    lazy var albums: [PHAssetCollection] = {
+        // We don't want collections without assets.
+        // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
+        // But that doesn't work... This seems suuuuuper ineffective...
+        let fetchOptions = self.assetSettings.fetchOptions.copy() as! PHFetchOptions
+        fetchOptions.fetchLimit = 1
+
+        return self.albumSettings.fetchResults.filter {
+            $0.count > 0
+        }.flatMap {
+            $0.objects(at: IndexSet(integersIn: 0..<$0.count))
+        }.filter {
+            // We can't use estimatedAssetCount on the collection
+            // It returns NSNotFound. So actually fetch the assets...
+            let assetsFetchResult = PHAsset.fetchAssets(in: $0, options: fetchOptions)
+            return assetsFetchResult.count > 0
+        }
+    }()
     
     private func rotateButtonArrow(_ button: UIButton) {
         UIView.animate(withDuration: 0.3) {

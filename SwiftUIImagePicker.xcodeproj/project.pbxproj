@@ -21,6 +21,9 @@
 		71862D4524EC21E000402B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4424EC21E000402B64 /* ContentView.swift */; };
 		71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4624EC23C000402B64 /* MultiImagePicker.swift */; };
 		71862D4B24EC31C300402B64 /* NavigationMultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */; };
+		719FE40C24F0206F0017C401 /* AssetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40B24F0206F0017C401 /* AssetSettings.swift */; };
+		719FE40E24F023670017C401 /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40D24F023670017C401 /* CGSize+Scale.swift */; };
+		719FE41024F0267B0017C401 /* AlbumSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40F24F0267B0017C401 /* AlbumSettings.swift */; };
 		71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918024ED70A000013664 /* InMemoryImageCache.swift */; };
 		71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918224ED831100013664 /* UIImage+Drawing.swift */; };
 		71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5918424EDBEFD00013664 /* View+ViewStyle.swift */; };
@@ -53,6 +56,9 @@
 		71862D4424EC21E000402B64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71862D4624EC23C000402B64 /* MultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePicker.swift; sourceTree = "<group>"; };
 		71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMultiImagePicker.swift; sourceTree = "<group>"; };
+		719FE40B24F0206F0017C401 /* AssetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSettings.swift; sourceTree = "<group>"; };
+		719FE40D24F023670017C401 /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
+		719FE40F24F0267B0017C401 /* AlbumSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSettings.swift; sourceTree = "<group>"; };
 		71F5918024ED70A000013664 /* InMemoryImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 		71F5918224ED831100013664 /* UIImage+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Drawing.swift"; sourceTree = "<group>"; };
 		71F5918424EDBEFD00013664 /* View+ViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewStyle.swift"; sourceTree = "<group>"; };
@@ -133,8 +139,11 @@
 		71862D4324EC216900402B64 /* MultiImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				719FE40F24F0267B0017C401 /* AlbumSettings.swift */,
+				719FE40B24F0206F0017C401 /* AssetSettings.swift */,
 				71F5918B24EEBAD000013664 /* AlbumsViewController.swift */,
 				71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */,
+				719FE40D24F023670017C401 /* CGSize+Scale.swift */,
 				71F5919124EED60600013664 /* DropdownAnimator.swift */,
 				71F5919524EF11B000013664 /* DropdownBackgroundView.swift */,
 				71F5919924EF259E00013664 /* DropdownCompatible.swift */,
@@ -230,13 +239,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				719FE40E24F023670017C401 /* CGSize+Scale.swift in Sources */,
 				71F5919C24EF263B00013664 /* Dropdown+UIView.swift in Sources */,
 				71F5918E24EEBB4D00013664 /* AlbumsViewModel.swift in Sources */,
 				71862D4024EC181A00402B64 /* String+Localized.swift in Sources */,
 				71F5919024EED56D00013664 /* DropdownTransitionDelegate.swift in Sources */,
 				71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */,
+				719FE41024F0267B0017C401 /* AlbumSettings.swift in Sources */,
 				71862D3424EB194700402B64 /* ImagePickerCollectionViewCell.swift in Sources */,
 				71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */,
+				719FE40C24F0206F0017C401 /* AssetSettings.swift in Sources */,
 				71F5919A24EF259E00013664 /* DropdownCompatible.swift in Sources */,
 				71862D3824EB313100402B64 /* ImagePickerCollectionViewLayout.swift in Sources */,
 				71F5919624EF11B000013664 /* DropdownBackgroundView.swift in Sources */,
