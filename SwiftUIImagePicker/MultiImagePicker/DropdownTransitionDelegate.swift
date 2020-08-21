@@ -11,8 +11,32 @@ import UIKit
 
 public class DropdownTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
+    private let arrowDirection: DropdownPresentationController.ArrowDirection
+    private let configuration: DropdownConfiguration
+    
+    var sourceView: UIView?
+    var sourceRect: CGRect = CGRect.zero
+    var sourceBarButtonItem: UIBarButtonItem?
+    var arrowPointX: CGFloat? = nil
+    var arrowPointY: CGFloat? = nil
+    
+    init(arrowDirection: DropdownPresentationController.ArrowDirection = .up,
+         configuration: DropdownConfiguration = DropdownConfiguration()) {
+        self.arrowDirection = arrowDirection
+        self.configuration = configuration
+    }
+    
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return presented.dropdown.presentationController
+        let presentation = DropdownPresentationController(presentedViewController: presented, presenting: presenting)
+        presentation.arrowDirection = self.arrowDirection
+        presentation.configuration = self.configuration
+        presentation.sourceView = self.sourceView
+        presentation.sourceRect = self.sourceRect
+        presentation.barButtonItem = self.sourceBarButtonItem
+        presentation.arrowPointX = self.arrowPointX
+        presentation.arrowPointY = self.arrowPointY
+        
+        return presentation
     }
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

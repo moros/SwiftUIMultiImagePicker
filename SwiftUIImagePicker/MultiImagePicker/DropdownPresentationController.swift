@@ -22,7 +22,7 @@ public class DropdownPresentationController: UIPresentationController {
     fileprivate let backgroundView = DropdownBackgroundView()
     fileprivate var backgroundViewRect = CGRect.zero
     fileprivate var arrowPoint = CGPoint.zero
-    fileprivate var configuration = DropdownConfiguration() {
+    var configuration = DropdownConfiguration() {
         didSet {
             self.backgroundView.configuration = configuration
         }

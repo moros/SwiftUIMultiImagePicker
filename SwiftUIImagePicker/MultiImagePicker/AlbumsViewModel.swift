@@ -11,18 +11,22 @@ import UIKit
 public class AlbumsViewModel: NSObject {
     
     var navigationController: UINavigationController? = nil
+    private var transitionDelegate: DropdownTransitionDelegate? = nil
     
     @objc func albumsButtonPressed(_ sender: UIButton) {
-        print("called")
-        
-        let controller = AlbumsViewController()
+
+        let controller = AlbumsViewController()        
         controller.onDismiss = {
             self.rotateButtonArrow(sender)
         }
-        controller.dropdown.enableDropdown = true
-        controller.dropdown.presentationController?.sourceView = sender
-        controller.dropdown.presentationController?.arrowPointX = self.navigationController?.navigationBar.frame.midX
-        controller.dropdown.presentationController?.arrowPointY = (self.navigationController?.navigationBar.frame.height ?? CGFloat(0)) + CGFloat(44)
+        
+        let delegate = DropdownTransitionDelegate()
+        delegate.sourceView = sender
+        delegate.sourceRect = sender.convert(sender.bounds, to: UIApplication.shared.windows.first)
+        self.transitionDelegate = delegate
+        
+        controller.modalPresentationStyle = .custom
+        controller.transitioningDelegate = self.transitionDelegate
         controller.preferredContentSize = CGSize(width: 200, height: 400)
         rotateButtonArrow(sender)
         

@@ -34,7 +34,6 @@
 		71F5919824EF1B7900013664 /* DropdownConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919724EF1B7900013664 /* DropdownConfiguration.swift */; };
 		71F5919A24EF259E00013664 /* DropdownCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919924EF259E00013664 /* DropdownCompatible.swift */; };
 		71F5919C24EF263B00013664 /* Dropdown+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919B24EF263B00013664 /* Dropdown+UIView.swift */; };
-		71F5919E24EF318200013664 /* Dropdown+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +65,6 @@
 		71F5919724EF1B7900013664 /* DropdownConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownConfiguration.swift; sourceTree = "<group>"; };
 		71F5919924EF259E00013664 /* DropdownCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownCompatible.swift; sourceTree = "<group>"; };
 		71F5919B24EF263B00013664 /* Dropdown+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dropdown+UIView.swift"; sourceTree = "<group>"; };
-		71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dropdown+UIViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +142,6 @@
 				71F5919324EED7A300013664 /* DropdownPresentationController.swift */,
 				71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */,
 				71F5919B24EF263B00013664 /* Dropdown+UIView.swift */,
-				71F5919D24EF318200013664 /* Dropdown+UIViewController.swift */,
 				71862D3324EB194700402B64 /* ImagePickerCollectionViewCell.swift */,
 				71862D3724EB313100402B64 /* ImagePickerCollectionViewLayout.swift */,
 				71862D3924EB31CB00402B64 /* ImagePickerViewController.swift */,
@@ -240,7 +237,6 @@
 				71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */,
 				71862D3424EB194700402B64 /* ImagePickerCollectionViewCell.swift in Sources */,
 				71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */,
-				71F5919E24EF318200013664 /* Dropdown+UIViewController.swift in Sources */,
 				71F5919A24EF259E00013664 /* DropdownCompatible.swift in Sources */,
 				71862D3824EB313100402B64 /* ImagePickerCollectionViewLayout.swift in Sources */,
 				71F5919624EF11B000013664 /* DropdownBackgroundView.swift in Sources */,

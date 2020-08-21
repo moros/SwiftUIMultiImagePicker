@@ -48,10 +48,10 @@ class DropdownAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let animatingView = presenting ? toView : fromView
         let animatingVC = presenting ? toVC : fromVC
         
-        if let anchorPoint = animatingVC.dropdown.presentationController?.anchorPoint {
-            self.presentationController = animatingVC.dropdown.presentationController
-            animatingView.dropdown.resetFrameAfterSet(anchorPoint: anchorPoint)
-        }
+//        if let anchorPoint = animatingVC.dropdown.presentationController?.anchorPoint {
+//            self.presentationController = animatingVC.dropdown.presentationController
+//            animatingView.dropdown.resetFrameAfterSet(anchorPoint: anchorPoint)
+//        }
         
         let startScale: CGFloat = presenting ? 0 : 1
         let endScale: CGFloat = presenting ? 1 : 0.1
@@ -78,7 +78,7 @@ class DropdownAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }) { (finished) in
             if !presenting {
                 fromView.removeFromSuperview()
-                animatingVC.dropdown.presentationController = nil
+//                animatingVC.dropdown.presentationController = nil
             }
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
