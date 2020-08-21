@@ -37,7 +37,7 @@ struct NavigationMultiImagePicker: View {
         NavigationView {
             MultiImagePicker(onSelected: { ids in
                 self.selectedIds = ids
-            })
+            }, photosInRow: 4)
             
             // set title to empty string, to force proper nav layout; otherwise,
             // adding titleView through introspect adds extra space under it.
