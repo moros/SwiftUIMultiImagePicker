@@ -31,56 +31,71 @@ class DropdownAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        
+        // determine if our context is being to present
         let presenting = self.context == .present
         
-        guard let fromVC = transitionContext.viewController(forKey: .from), let toVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        guard let fromView = fromVC.view, let toView = toVC.view else {
+        guard let source = transitionContext.viewController(forKey: .from) else {
             return
         }
         
-        let containerView = transitionContext.containerView
-        if presenting {
-            containerView.addSubview(toView)
+        guard let destination = transitionContext.viewController(forKey: .to) else {
+            return
         }
         
-        let animatingView = presenting ? toView : fromView
-        let animatingVC = presenting ? toVC : fromVC
+        let container = transitionContext.containerView
         
-//        if let anchorPoint = animatingVC.dropdown.presentationController?.anchorPoint {
-//            self.presentationController = animatingVC.dropdown.presentationController
-//            animatingView.dropdown.resetFrameAfterSet(anchorPoint: anchorPoint)
-//        }
+        // take destination view snapshot
+        // use true because the view hasn't been rendered yet.
+        guard let destinationSnapshot = destination.view.snapshotView(afterScreenUpdates: true) else {
+            return
+        }
         
-        let startScale: CGFloat = presenting ? 0 : 1
-        let endScale: CGFloat = presenting ? 1 : 0.1
         let startAlpha: CGFloat = presenting ? 0 : 1
-        let endAlpha: CGFloat = presenting ? 1 : 0.1
-        switch self.animation {
-        case .scale:
-            animatingView.transform = CGAffineTransform(scaleX: startScale, y: startScale)
-        case .alpha:
-            animatingView.alpha = startAlpha
+        let endAlpha: CGFloat = presenting ? 1 : 0
+        
+        
+        // add snapshot view if presenting
+        if presenting {
+            destinationSnapshot.alpha = startAlpha
+            destinationSnapshot.frame = destination.view.frame
+            
+            container.addSubview(destinationSnapshot)
+        } else {
+            destinationSnapshot.alpha = endAlpha
+            source.view.removeFromSuperview()
         }
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-            switch self.animation {
-            case .scale:
-                if presenting {
-                    animatingView.transform = CGAffineTransform.identity
-                } else {
-                    animatingView.transform = CGAffineTransform(scaleX: endScale, y: endScale)
-                }
-            case .alpha:
-                animatingView.alpha = endAlpha
+        // move destination snapshot back in Z plane
+        var perspectiveTransform = CATransform3DIdentity
+        perspectiveTransform.m34 = 1.0 / -1000.0
+        perspectiveTransform = CATransform3DTranslate(perspectiveTransform, 0, -destinationSnapshot.frame.height, -100)
+        destinationSnapshot.layer.transform = perspectiveTransform
+
+        // start appearance transition for source controller
+        // because UIKit does not remove views from hierarchy when transition finished
+        source.beginAppearanceTransition(false, animated: true)
+        
+        UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeCubic, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.8, animations: {
+                destinationSnapshot.layer.transform = CATransform3DIdentity
+            })
+        }, completion: { finished in
+            destinationSnapshot.alpha = endAlpha
+            
+            // remove destination snapshot
+            destinationSnapshot.removeFromSuperview()
+            
+            // add destination controller to view
+            if presenting {
+                container.addSubview(destination.view)
             }
-        }) { (finished) in
-            if !presenting {
-                fromView.removeFromSuperview()
-//                animatingVC.dropdown.presentationController = nil
-            }
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+            
+            // finish transition
+            transitionContext.completeTransition(finished)
+            
+            // end appearance transition for source controller
+            source.endAppearanceTransition()
+        })
     }
 }
