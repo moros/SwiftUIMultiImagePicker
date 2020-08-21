@@ -21,7 +21,7 @@ public class DropdownTransitionDelegate: NSObject, UIViewControllerTransitioning
     var arrowPointY: CGFloat? = nil
     
     init(arrowDirection: DropdownPresentationController.ArrowDirection = .up,
-         configuration: DropdownConfiguration = DropdownConfiguration()) {
+         configuration: DropdownConfiguration = DropdownConfiguration.shared) {
         self.arrowDirection = arrowDirection
         self.configuration = configuration
     }

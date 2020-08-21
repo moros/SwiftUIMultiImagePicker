@@ -22,7 +22,7 @@ public class DropdownPresentationController: UIPresentationController {
     fileprivate let backgroundView = DropdownBackgroundView()
     fileprivate var backgroundViewRect = CGRect.zero
     fileprivate var arrowPoint = CGPoint.zero
-    var configuration = DropdownConfiguration() {
+    var configuration = DropdownConfiguration.shared {
         didSet {
             self.backgroundView.configuration = configuration
         }
@@ -207,10 +207,11 @@ public class DropdownPresentationController: UIPresentationController {
         dimmingView.frame = containerView.bounds
         dimmingView.alpha = 0
         
-        self.backgroundView.arrowColor = self.traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.black
+        self.backgroundView.arrowColor = self.traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.systemGroupedBackground
         
         containerView.insertSubview(backgroundView, at: 0)
         containerView.insertSubview(dimmingView, at: 0)
+        
         presentedView?.frame = frameOfPresentedViewInContainerView
         backgroundView.frame = backgroundViewRect
         presentedView?.layer.cornerRadius = self.configuration.cornerRadius

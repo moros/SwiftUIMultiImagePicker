@@ -13,7 +13,7 @@ class DropdownBackgroundView: UIView {
     
     var arrowPoint: CGPoint = .zero
     var arrowDirection: DropdownPresentationController.ArrowDirection = .up
-    var configuration: DropdownConfiguration = DropdownConfiguration()
+    var configuration: DropdownConfiguration = DropdownConfiguration.shared
     var arrowColor: UIColor?
     
     override init(frame: CGRect) {

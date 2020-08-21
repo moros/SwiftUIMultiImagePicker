@@ -127,6 +127,7 @@ class AlbumsViewController: UIViewController {
     
     var onDismiss: (() -> Void)? = nil
     var albums: [PHAssetCollection] = []
+    var configuration: DropdownConfiguration = DropdownConfiguration.shared
     
     private var dataSource: AlbumsTableViewDataSource?
     private weak var tableView: UITableView?
