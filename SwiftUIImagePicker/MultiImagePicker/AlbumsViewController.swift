@@ -42,11 +42,10 @@ class AlbumTableViewCell: UITableViewCell {
         self.albumTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.albumTitleLabel.numberOfLines = 0
         self.contentView.addSubview(albumTitleLabel)
-
+        
         NSLayoutConstraint.activate([
-            self.albumImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            self.albumImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             self.albumImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            self.albumImageView.heightAnchor.constraint(equalToConstant: 84),
             self.albumImageView.widthAnchor.constraint(equalToConstant: 84),
             self.albumImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             self.albumTitleLabel.leadingAnchor.constraint(equalTo: self.albumImageView.trailingAnchor, constant: 8),
@@ -130,11 +129,15 @@ class AlbumsViewController: UIViewController {
     var configuration: DropdownConfiguration = DropdownConfiguration.shared
     
     private var dataSource: AlbumsTableViewDataSource?
-    private weak var tableView: UITableView?
+    private weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView?.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,43 +152,43 @@ class AlbumsViewController: UIViewController {
             return
         }
         
-        defer {
-            self.tableView?.reloadData()
-        }
-        
-        let tableView = UITableView(frame: view.frame, style: .grouped)
-        setupTableView(tableView)
-        
+        let tableView = self.makeTableView()
         view.addSubview(tableView)
         self.tableView = tableView
         
-//        var constraints: [NSLayoutConstraint] = []
-//        constraints += [view.constraintEqualTo(with: tableView, attribute: .top)]
-//        constraints += [view.constraintEqualTo(with: tableView, attribute: .right)]
-//        constraints += [view.constraintEqualTo(with: tableView, attribute: .left)]
-//        constraints += [view.constraintEqualTo(with: tableView, attribute: .bottom)]
-//
-//        NSLayoutConstraint.activate(constraints)
-//        view.layoutIfNeeded()
+        var constraints: [NSLayoutConstraint] = []
+        constraints += [view.constraintEqualTo(with: tableView, attribute: .top, constant: 8)]
+        constraints += [view.constraintEqualTo(with: tableView, attribute: .right, constant: 8)]
+        constraints += [view.constraintEqualTo(with: tableView, attribute: .left, constant: -8)]
+        constraints += [view.constraintEqualTo(with: tableView, attribute: .bottom, constant: 8)]
+
+        NSLayoutConstraint.activate(constraints)
     }
     
-    private func setupTableView(_ tableView: UITableView) {
+    private func makeTableView() -> UITableView {
         self.dataSource = AlbumsTableViewDataSource(albums: self.albums)
         
-        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        let tableView: UITableView = UITableView()
+        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.reuseId)
+        tableView.dataSource = self.dataSource
+        tableView.delegate = self
+        
+        //for auto layout rendering
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 100
 //        tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = .leastNormalMagnitude
         tableView.sectionFooterHeight = .leastNormalMagnitude
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-//        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .clear
+//        DropdownConfiguration.shared.backgroundColor = tableView.backgroundColor ?? UIColor.clear
+//        self.configuration.backgroundColor = UIColor.clear
+//        self.view.backgroundColor = UIColor.clear
         
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.dataSource = self.dataSource
-        tableView.delegate = self
-        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.reuseId)
+        return tableView
     }
 }
 
