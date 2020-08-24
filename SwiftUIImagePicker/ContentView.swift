@@ -14,20 +14,30 @@ struct ContentView: View {
     @State var sheetPickerShown = false
     
     var body: some View {
-        VStack {
-            MultiImagePicker(onSelected: { ids in
-                print(ids)
-            }, photosInRow: 4)
-            Button(action: {
-                self.sheetPickerShown = true
-            }) {
-                Text("Show Sheet Image Picker")
+        NavigationView {
+            VStack {
+                NavigationLink(destination: MultiImagePicker(onSelected: { ids in
+                    print(ids)
+                }, photosInRow: 4), label: {
+                    Text("Show ImagePicker from Nav Link")
+                        .font(.headline)
+                        .padding()
+                })
+                
+                Button(action: {
+                    self.sheetPickerShown = true
+                }) {
+                    Text("Show ImagePicker in sheet")
+                        .font(.headline)
+                        .padding()
+                }
+                .sheet(isPresented: self.$sheetPickerShown, content: {
+                    MultiImagePicker(isPresented: self.$sheetPickerShown, onSelected: { ids in
+                        print("ids from nav picker: \(ids)")
+                    }, usePhoneOnlyStackNavigation: true, wrapViewInNavigationView: true)
+                })
             }
-            .sheet(isPresented: self.$sheetPickerShown, content: {
-                MultiImagePicker(isPresented: self.$sheetPickerShown, onSelected: { ids in
-                    print("ids from nav picker: \(ids)")
-                }, usePhoneOnlyStackNavigation: true, wrapViewInNavigationView: true)
-            })
+            .navigationBarTitle("Image Picker")
         }
     }
 }

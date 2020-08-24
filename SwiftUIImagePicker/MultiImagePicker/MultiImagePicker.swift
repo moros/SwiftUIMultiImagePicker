@@ -96,11 +96,15 @@ struct MultiImagePicker: View {
     }
     
     private func leadingButton() -> some View {
-        return Button(action: {
+        if !self.wrapViewInNavigationView {
+            return AnyView(EmptyView())
+        }
+        
+        return AnyView(Button(action: {
             self.isPresented = false
         }, label: {
             Text("cancel.label".localized())
-        })
+        }))
     }
     
     private func trailingButton() -> some View {
