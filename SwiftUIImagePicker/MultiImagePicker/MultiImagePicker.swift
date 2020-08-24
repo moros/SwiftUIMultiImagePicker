@@ -10,6 +10,9 @@ import Photos
 import SwiftUI
 import UIKit
 
+/// An image picker that shows and allows multiple selection of photos
+/// using the Photos library.
+///
 struct MultiImagePicker: View {
     
     /// Used for triggering re-render of view.
@@ -64,12 +67,7 @@ struct MultiImagePicker: View {
         
         return AnyView(NavigationView {
             self.makePickerView()
-        }
-        .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
-        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
-            self.selectedIds = []
-            self.selectedAssetCollection = data
-        }))
+        })
     }
     
     private func makePickerView() -> some View {
@@ -93,6 +91,11 @@ struct MultiImagePicker: View {
             
             navigationController.viewControllers.first?.navigationItem.titleView = albumButton
         }
+        .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
+        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
+            self.selectedIds = []
+            self.selectedAssetCollection = data
+        })
     }
     
     private func leadingButton() -> some View {
