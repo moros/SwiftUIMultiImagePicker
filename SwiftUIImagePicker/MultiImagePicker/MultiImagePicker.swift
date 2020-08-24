@@ -96,6 +96,13 @@ struct MultiImagePicker: View {
             self.selectedIds = []
             self.selectedAssetCollection = data
         })
+        .onDisappear {
+            
+            // when picker disappears either canceled tapped or view popped from navigation view
+            // resetting selectedAssetCollection so next time in, the photos listed and the album
+            // selected are NOT out of sync.
+            self.albumsViewModel.selectedAssetCollection = nil
+        }
     }
     
     private func leadingButton() -> some View {
