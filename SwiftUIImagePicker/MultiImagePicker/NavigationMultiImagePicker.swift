@@ -6,6 +6,7 @@
 //
 
 import Introspect
+import Photos
 import SwiftUI
 import UIKit
 
@@ -14,11 +15,15 @@ struct NavigationMultiImagePicker: View {
     var doneAction: ([String]) -> ()
     
     private var albumButton: UIButton = UIButton(type: .system)
-    private var albumsViewModel: AlbumsViewModel = AlbumsViewModel()
+    @ObservedObject private var albumsViewModel = AlbumsViewModel()
     
     /// The PHAsset localIdentifier's selected by user.
     ///
     @State var selectedIds = [String]()
+    
+    /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
+    ///
+    @State var selectedAssetCollection: PHAssetCollection? = nil
     
     /// Allows consuming code to turn on StackNavigationViewStyle
     /// especially if one does not wish to default to using a primary and secondary
@@ -37,7 +42,7 @@ struct NavigationMultiImagePicker: View {
         NavigationView {
             MultiImagePicker(onSelected: { ids in
                 self.selectedIds = ids
-            }, photosInRow: 4)
+            }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: 4)
             
             // set title to empty string, to force proper nav layout; otherwise,
             // adding titleView through introspect adds extra space under it.
@@ -55,6 +60,10 @@ struct NavigationMultiImagePicker: View {
             }
         }
         .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
+        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
+            self.selectedIds = []
+            self.selectedAssetCollection = data
+        })
     }
     
     private func leadingButton() -> some View {

@@ -122,6 +122,10 @@ class AlbumsTableViewDataSource: NSObject, UITableViewDataSource {
     ]
 }
 
+protocol AlbumsViewControllerDelegate: class {
+    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection)
+}
+
 class AlbumsViewController: UIViewController {
     
     var onDismiss: (() -> Void)? = nil
@@ -130,6 +134,8 @@ class AlbumsViewController: UIViewController {
     
     private var dataSource: AlbumsTableViewDataSource?
     private weak var tableView: UITableView!
+    
+    weak var delegate: AlbumsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,21 +178,15 @@ class AlbumsViewController: UIViewController {
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.reuseId)
         tableView.dataSource = self.dataSource
         tableView.delegate = self
-        
-        //for auto layout rendering
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-//        tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = .leastNormalMagnitude
         tableView.sectionFooterHeight = .leastNormalMagnitude
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.backgroundColor = .clear
-//        DropdownConfiguration.shared.backgroundColor = tableView.backgroundColor ?? UIColor.clear
-//        self.configuration.backgroundColor = UIColor.clear
-//        self.view.backgroundColor = UIColor.clear
         
         return tableView
     }
@@ -194,4 +194,9 @@ class AlbumsViewController: UIViewController {
 
 extension AlbumsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let album = self.albums[indexPath.row]
+        self.delegate?.albumsViewController(self, didSelectAlbum: album)
+        self.dismiss(animated: true, completion: nil)
+    }
 }

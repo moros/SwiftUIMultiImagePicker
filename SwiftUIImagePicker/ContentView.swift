@@ -5,11 +5,17 @@
 //  Created by dmason on 8/18/20.
 //
 
+import Combine
+import Photos
 import SwiftUI
 
 struct ContentView: View {
     
     @State var sheetPickerShown = false
+    
+    /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
+    ///
+    @State var selectedAssetCollection: PHAssetCollection? = nil
     
     var body: some View {
 //        NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
@@ -18,7 +24,7 @@ struct ContentView: View {
         VStack {
             MultiImagePicker(onSelected: { ids in
                 print(ids)
-            }, photosInRow: 4)
+            }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: 4)
             Button(action: {
                 self.sheetPickerShown = true
             }) {

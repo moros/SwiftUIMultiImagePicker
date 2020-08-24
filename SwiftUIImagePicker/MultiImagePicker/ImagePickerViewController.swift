@@ -5,7 +5,9 @@
 //  Created by dmason on 8/17/20.
 //
 
+import Combine
 import Photos
+import SwiftUI
 import UIKit
 
 public class ImagePickerViewController: UIViewController {
@@ -31,13 +33,20 @@ public class ImagePickerViewController: UIViewController {
     /// Global asset settings object
     var assetSettings: AssetSettings = AssetSettings.shared
     
+    var selectedAssetCollection: PHAssetCollection? = nil {
+        didSet {
+            self.selectedAssetIds = []
+            self.fetchPhotos(assetCollection: selectedAssetCollection)
+        }
+    }
+    
     private var photoAssets: PHFetchResult<PHAsset> = PHFetchResult()
     private var selectedAssetIds: [String] = []
-    
+        
     public required init() {
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("Cannot init \(String(describing: ImagePickerViewController.self)) from Interface Builder")
     }
@@ -84,10 +93,12 @@ public class ImagePickerViewController: UIViewController {
         collectionView.register(ImagePickerCollectionViewCell.self, forCellWithReuseIdentifier: ImagePickerCollectionViewCell.reuseId)
     }
     
-    private func fetchPhotos() {
+    private func fetchPhotos(assetCollection: PHAssetCollection? = nil) {
         requestPhotoAccessIfNeeded(PHPhotoLibrary.authorizationStatus())
         
-        photoAssets = PHAsset.fetchAssets(with: self.assetSettings.fetchOptions)
+        photoAssets = assetCollection == nil
+            ? PHAsset.fetchAssets(with: self.assetSettings.fetchOptions)
+            : PHAsset.fetchAssets(in: assetCollection!, options: self.assetSettings.fetchOptions)
         collectionView?.reloadData()
     }
     

@@ -5,6 +5,8 @@
 //  Created by dmason on 8/18/20.
 //
 
+import Combine
+import Photos
 import SwiftUI
 import UIKit
 
@@ -39,12 +41,26 @@ struct MultiImagePicker: UIViewControllerRepresentable {
     ///
     var imageMinimumInteritemSpacing: CGFloat = 6
     
+    /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
+    ///
+    @Binding var selectedAssetCollection: PHAssetCollection?
+    
+    init(onSelected: @escaping AssetIdentifiersSelected, selectedAssetCollection: Binding<PHAssetCollection?>, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
+        self.onSelected = onSelected
+        self._selectedAssetCollection = selectedAssetCollection
+        
+        self.maximumSelectionsAllowed = maximumSelectionsAllowed
+        self.photosInRow = photosInRow
+        self.imageMinimumInteritemSpacing = imageMinimumInteritemSpacing
+    }
+    
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let picker = ImagePickerViewController()
         picker.delegate = context.coordinator
         picker.maximumSelectionsAllowed = self.maximumSelectionsAllowed
         picker.numberOfPhotosInRow = self.photosInRow
         picker.imageMinimumInteritemSpacing = self.imageMinimumInteritemSpacing
+        picker.selectedAssetCollection = self.selectedAssetCollection
         
         return picker
     }
@@ -54,5 +70,8 @@ struct MultiImagePicker: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        if self.selectedAssetCollection != uiViewController.selectedAssetCollection {
+            uiViewController.selectedAssetCollection = self.selectedAssetCollection
+        }
     }
 }

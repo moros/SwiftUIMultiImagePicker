@@ -6,16 +6,24 @@
 //  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
+import Combine
 import Foundation
 import Photos
 import UIKit
 
-public class AlbumsViewModel: NSObject {
+public class AlbumsViewModel: ObservableObject {
     
     var albumSettings: AlbumSettings = AlbumSettings.shared
     var assetSettings: AssetSettings = AssetSettings.shared
     var navigationController: UINavigationController? = nil
     private var transitionDelegate: DropdownTransitionDelegate? = nil
+    
+    public let objectWillChange = PassthroughSubject<PHAssetCollection, Never>()
+    var selectedAssetCollection: PHAssetCollection = PHAssetCollection() {
+        didSet {
+            objectWillChange.send(selectedAssetCollection)
+        }
+    }
     
     var isLandscape: Bool {
         return UIApplication.shared.windows
@@ -29,6 +37,7 @@ public class AlbumsViewModel: NSObject {
 
         let controller = AlbumsViewController()
         controller.albums = self.albums
+        controller.delegate = self
         controller.onDismiss = {
             self.rotateButtonArrow(sender)
         }
@@ -87,5 +96,12 @@ public class AlbumsViewModel: NSObject {
             
             imageView.transform = imageView.transform.rotated(by: .pi)
         }
+    }
+}
+
+extension AlbumsViewModel: AlbumsViewControllerDelegate {
+    
+    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
+        self.selectedAssetCollection = ablum
     }
 }
