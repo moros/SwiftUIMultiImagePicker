@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7111A2DD24F458AA00772D57 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111A2DC24F458AA00772D57 /* AlbumTableViewCell.swift */; };
+		7111A2DF24F458CF00772D57 /* AlbumsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111A2DE24F458CF00772D57 /* AlbumsTableViewDataSource.swift */; };
+		7111A2E124F458F400772D57 /* AlbumsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111A2E024F458F400772D57 /* AlbumsViewControllerDelegate.swift */; };
 		71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D1F24EB17DB00402B64 /* AppDelegate.swift */; };
 		71862D2224EB17DB00402B64 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D2124EB17DB00402B64 /* SceneDelegate.swift */; };
 		71862D2924EB17DE00402B64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71862D2824EB17DE00402B64 /* Assets.xcassets */; };
@@ -40,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7111A2DC24F458AA00772D57 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
+		7111A2DE24F458CF00772D57 /* AlbumsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsTableViewDataSource.swift; sourceTree = "<group>"; };
+		7111A2E024F458F400772D57 /* AlbumsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewControllerDelegate.swift; sourceTree = "<group>"; };
 		71862D1C24EB17DB00402B64 /* SwiftUIImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71862D1F24EB17DB00402B64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71862D2124EB17DB00402B64 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,7 +164,10 @@
 			children = (
 				719FE40F24F0267B0017C401 /* AlbumSettings.swift */,
 				719FE40B24F0206F0017C401 /* AssetSettings.swift */,
+				7111A2DC24F458AA00772D57 /* AlbumTableViewCell.swift */,
+				7111A2DE24F458CF00772D57 /* AlbumsTableViewDataSource.swift */,
 				71F5918B24EEBAD000013664 /* AlbumsViewController.swift */,
+				7111A2E024F458F400772D57 /* AlbumsViewControllerDelegate.swift */,
 				71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */,
 				71862D3324EB194700402B64 /* ImagePickerCollectionViewCell.swift */,
 				71862D3724EB313100402B64 /* ImagePickerCollectionViewLayout.swift */,
@@ -247,11 +256,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7111A2DF24F458CF00772D57 /* AlbumsTableViewDataSource.swift in Sources */,
 				719FE40E24F023670017C401 /* CGSize+Scale.swift in Sources */,
 				71F5919C24EF263B00013664 /* Dropdown+UIView.swift in Sources */,
 				71F5918E24EEBB4D00013664 /* AlbumsViewModel.swift in Sources */,
 				71862D4024EC181A00402B64 /* String+Localized.swift in Sources */,
 				71F5919024EED56D00013664 /* DropdownTransitionDelegate.swift in Sources */,
+				7111A2DD24F458AA00772D57 /* AlbumTableViewCell.swift in Sources */,
 				71862D2024EB17DB00402B64 /* AppDelegate.swift in Sources */,
 				719FE41024F0267B0017C401 /* AlbumSettings.swift in Sources */,
 				71862D3424EB194700402B64 /* ImagePickerCollectionViewCell.swift in Sources */,
@@ -271,6 +282,7 @@
 				71862D3624EB20DE00402B64 /* UIView+Helper.swift in Sources */,
 				71F5918524EDBEFD00013664 /* View+ViewStyle.swift in Sources */,
 				71862D3C24EB384A00402B64 /* ImagePickerControllerDelegate.swift in Sources */,
+				7111A2E124F458F400772D57 /* AlbumsViewControllerDelegate.swift in Sources */,
 				71862D3A24EB31CB00402B64 /* ImagePickerViewController.swift in Sources */,
 				71F5918C24EEBAD000013664 /* AlbumsViewController.swift in Sources */,
 			);
