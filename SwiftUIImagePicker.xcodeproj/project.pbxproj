@@ -19,8 +19,8 @@
 		71862D3E24EC171D00402B64 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71862D3D24EC171D00402B64 /* Localizable.strings */; };
 		71862D4024EC181A00402B64 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D3F24EC181A00402B64 /* String+Localized.swift */; };
 		71862D4524EC21E000402B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4424EC21E000402B64 /* ContentView.swift */; };
-		71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4624EC23C000402B64 /* MultiImagePicker.swift */; };
-		71862D4B24EC31C300402B64 /* NavigationMultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */; };
+		71862D4724EC23C000402B64 /* MultiImagePickerWraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4624EC23C000402B64 /* MultiImagePickerWraper.swift */; };
+		71862D4B24EC31C300402B64 /* MultiImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71862D4A24EC31C300402B64 /* MultiImagePicker.swift */; };
 		719FE40C24F0206F0017C401 /* AssetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40B24F0206F0017C401 /* AssetSettings.swift */; };
 		719FE40E24F023670017C401 /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40D24F023670017C401 /* CGSize+Scale.swift */; };
 		719FE41024F0267B0017C401 /* AlbumSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719FE40F24F0267B0017C401 /* AlbumSettings.swift */; };
@@ -54,8 +54,8 @@
 		71862D3D24EC171D00402B64 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		71862D3F24EC181A00402B64 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		71862D4424EC21E000402B64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		71862D4624EC23C000402B64 /* MultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePicker.swift; sourceTree = "<group>"; };
-		71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMultiImagePicker.swift; sourceTree = "<group>"; };
+		71862D4624EC23C000402B64 /* MultiImagePickerWraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerWraper.swift; sourceTree = "<group>"; };
+		71862D4A24EC31C300402B64 /* MultiImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePicker.swift; sourceTree = "<group>"; };
 		719FE40B24F0206F0017C401 /* AssetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSettings.swift; sourceTree = "<group>"; };
 		719FE40D24F023670017C401 /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
 		719FE40F24F0267B0017C401 /* AlbumSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSettings.swift; sourceTree = "<group>"; };
@@ -85,6 +85,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7111A2DB24F4413300772D57 /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+				71F5919124EED60600013664 /* DropdownAnimator.swift */,
+				71F5919524EF11B000013664 /* DropdownBackgroundView.swift */,
+				71F5919924EF259E00013664 /* DropdownCompatible.swift */,
+				71F5919724EF1B7900013664 /* DropdownConfiguration.swift */,
+				71F5919324EED7A300013664 /* DropdownPresentationController.swift */,
+				71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */,
+				71F5919B24EF263B00013664 /* Dropdown+UIView.swift */,
+			);
+			path = Popover;
+			sourceTree = "<group>";
+		};
 		71862D1324EB17DB00402B64 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +121,7 @@
 				71862D4424EC21E000402B64 /* ContentView.swift */,
 				71862D4224EC214C00402B64 /* Utility */,
 				71862D4324EC216900402B64 /* MultiImagePicker */,
+				7111A2DB24F4413300772D57 /* Popover */,
 				71862D4124EC20A700402B64 /* Supporting Files */,
 			);
 			path = SwiftUIImagePicker;
@@ -128,10 +143,12 @@
 		71862D4224EC214C00402B64 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				719FE40D24F023670017C401 /* CGSize+Scale.swift */,
 				71862D3524EB20DE00402B64 /* UIView+Helper.swift */,
 				71862D3F24EC181A00402B64 /* String+Localized.swift */,
 				71F5918224ED831100013664 /* UIImage+Drawing.swift */,
 				71F5918424EDBEFD00013664 /* View+ViewStyle.swift */,
+				71F5918024ED70A000013664 /* InMemoryImageCache.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -143,21 +160,12 @@
 				719FE40B24F0206F0017C401 /* AssetSettings.swift */,
 				71F5918B24EEBAD000013664 /* AlbumsViewController.swift */,
 				71F5918D24EEBB4D00013664 /* AlbumsViewModel.swift */,
-				719FE40D24F023670017C401 /* CGSize+Scale.swift */,
-				71F5919124EED60600013664 /* DropdownAnimator.swift */,
-				71F5919524EF11B000013664 /* DropdownBackgroundView.swift */,
-				71F5919924EF259E00013664 /* DropdownCompatible.swift */,
-				71F5919724EF1B7900013664 /* DropdownConfiguration.swift */,
-				71F5919324EED7A300013664 /* DropdownPresentationController.swift */,
-				71F5918F24EED56D00013664 /* DropdownTransitionDelegate.swift */,
-				71F5919B24EF263B00013664 /* Dropdown+UIView.swift */,
 				71862D3324EB194700402B64 /* ImagePickerCollectionViewCell.swift */,
 				71862D3724EB313100402B64 /* ImagePickerCollectionViewLayout.swift */,
 				71862D3924EB31CB00402B64 /* ImagePickerViewController.swift */,
 				71862D3B24EB384A00402B64 /* ImagePickerControllerDelegate.swift */,
-				71862D4624EC23C000402B64 /* MultiImagePicker.swift */,
-				71862D4A24EC31C300402B64 /* NavigationMultiImagePicker.swift */,
-				71F5918024ED70A000013664 /* InMemoryImageCache.swift */,
+				71862D4624EC23C000402B64 /* MultiImagePickerWraper.swift */,
+				71862D4A24EC31C300402B64 /* MultiImagePicker.swift */,
 			);
 			path = MultiImagePicker;
 			sourceTree = "<group>";
@@ -253,10 +261,10 @@
 				71862D3824EB313100402B64 /* ImagePickerCollectionViewLayout.swift in Sources */,
 				71F5919624EF11B000013664 /* DropdownBackgroundView.swift in Sources */,
 				71F5919424EED7A300013664 /* DropdownPresentationController.swift in Sources */,
-				71862D4724EC23C000402B64 /* MultiImagePicker.swift in Sources */,
+				71862D4724EC23C000402B64 /* MultiImagePickerWraper.swift in Sources */,
 				71F5918124ED70A000013664 /* InMemoryImageCache.swift in Sources */,
 				71F5919224EED60600013664 /* DropdownAnimator.swift in Sources */,
-				71862D4B24EC31C300402B64 /* NavigationMultiImagePicker.swift in Sources */,
+				71862D4B24EC31C300402B64 /* MultiImagePicker.swift in Sources */,
 				71862D4524EC21E000402B64 /* ContentView.swift in Sources */,
 				71F5918324ED831100013664 /* UIImage+Drawing.swift in Sources */,
 				71F5919824EF1B7900013664 /* DropdownConfiguration.swift in Sources */,

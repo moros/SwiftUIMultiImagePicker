@@ -13,27 +13,20 @@ struct ContentView: View {
     
     @State var sheetPickerShown = false
     
-    /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
-    ///
-    @State var selectedAssetCollection: PHAssetCollection? = nil
-    
     var body: some View {
-//        NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { _ in
-//
-//        }, usePhoneOnlyStackNavigation: true)
         VStack {
             MultiImagePicker(onSelected: { ids in
                 print(ids)
-            }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: 4)
+            }, photosInRow: 4)
             Button(action: {
                 self.sheetPickerShown = true
             }) {
                 Text("Show Sheet Image Picker")
             }
             .sheet(isPresented: self.$sheetPickerShown, content: {
-                NavigationMultiImagePicker(isPresented: self.$sheetPickerShown, doneAction: { ids in
+                MultiImagePicker(isPresented: self.$sheetPickerShown, onSelected: { ids in
                     print("ids from nav picker: \(ids)")
-                }, usePhoneOnlyStackNavigation: true)
+                }, usePhoneOnlyStackNavigation: true, wrapViewInNavigationView: true)
             })
         }
     }

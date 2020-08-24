@@ -1,77 +1,123 @@
 //
-//  MultiImagePicker.swift
+//  MultiImagePickerSheet.swift
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/18/20.
 //
 
-import Combine
+import Introspect
 import Photos
 import SwiftUI
 import UIKit
 
-typealias AssetIdentifiersSelected = ([String]) -> Void
-
-class ImagePickerCordinator: NSObject, ImagePickerControllerDelegate {
+struct MultiImagePicker: View {
     
-    let selectedIdentifiers: AssetIdentifiersSelected
-    
-    init(selectedIdentifiers: @escaping AssetIdentifiersSelected) {
-        self.selectedIdentifiers = selectedIdentifiers
-    }
-    
-    func imagePicker(_ picker: ImagePickerViewController, didPickAssetIdentifiers identifiers: [String]) {
-        self.selectedIdentifiers(identifiers)
-    }
-}
-
-struct MultiImagePicker: UIViewControllerRepresentable {
-    typealias UIViewControllerType = ImagePickerViewController
-    let onSelected: AssetIdentifiersSelected
-    
-    /// Maximum photo selections allowed in picker
+    /// Used for triggering re-render of view.
     ///
-    var maximumSelectionsAllowed: Int = -1
+    @Binding var isPresented: Bool
     
-    /// Defends number of photos to put into each row.
+    /// Triggered when a user taps done button from navigation bar if
+    /// picker is embedded in a navigation view.
     ///
-    var photosInRow: Int = 3
+    var onSelected: ([String]) -> ()
     
-    /// Minimum amount of spacing between images.
+    /// Allows consuming code to turn on StackNavigationViewStyle
+    /// especially if one does not wish to default to using a primary and secondary
+    /// view as that is what SwiftUI will expect in landscape mode for
+    /// certain iPhone devices.
     ///
-    var imageMinimumInteritemSpacing: CGFloat = 6
+    var usePhoneOnlyStackNavigation: Bool = false
+    
+    /// Indication if view should be wrapped in a navigation view.
+    /// Most useful if displaying said view as a sheet.
+    ///
+    var wrapViewInNavigationView: Bool = false
+    
+    /// Default number of photos to put into each row.
+    ///
+    var photosInRow: Int = 4
+    
+    /// Model object for getting `PHAssetCollection`s and selecting one.
+    ///
+    @ObservedObject private var albumsViewModel = AlbumsViewModel()
+    
+    /// The PHAsset localIdentifier's selected by user.
+    ///
+    @State private var selectedIds = [String]()
     
     /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
     ///
-    @Binding var selectedAssetCollection: PHAssetCollection?
+    @State private var selectedAssetCollection: PHAssetCollection? = nil
     
-    init(onSelected: @escaping AssetIdentifiersSelected, selectedAssetCollection: Binding<PHAssetCollection?>, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
+    init(isPresented: Binding<Bool> = .constant(true), onSelected: @escaping ([String]) -> (), usePhoneOnlyStackNavigation: Bool = false, wrapViewInNavigationView: Bool = false, photosInRow: Int = 4) {
+        self._isPresented = isPresented
         self.onSelected = onSelected
-        self._selectedAssetCollection = selectedAssetCollection
-        
-        self.maximumSelectionsAllowed = maximumSelectionsAllowed
+        self.usePhoneOnlyStackNavigation = usePhoneOnlyStackNavigation
+        self.wrapViewInNavigationView = wrapViewInNavigationView
         self.photosInRow = photosInRow
-        self.imageMinimumInteritemSpacing = imageMinimumInteritemSpacing
     }
     
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        let picker = ImagePickerViewController()
-        picker.delegate = context.coordinator
-        picker.maximumSelectionsAllowed = self.maximumSelectionsAllowed
-        picker.numberOfPhotosInRow = self.photosInRow
-        picker.imageMinimumInteritemSpacing = self.imageMinimumInteritemSpacing
-        picker.selectedAssetCollection = self.selectedAssetCollection
+    var body: some View {
+        if !self.wrapViewInNavigationView {
+            return AnyView(self.makePickerView())
+        }
         
-        return picker
+        return AnyView(NavigationView {
+            self.makePickerView()
+        }
+        .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
+        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
+            self.selectedIds = []
+            self.selectedAssetCollection = data
+        }))
     }
     
-    func makeCoordinator() -> ImagePickerCordinator {
-        return ImagePickerCordinator(selectedIdentifiers: onSelected)
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        if self.selectedAssetCollection != uiViewController.selectedAssetCollection {
-            uiViewController.selectedAssetCollection = self.selectedAssetCollection
+    private func makePickerView() -> some View {
+        return MultiImagePickerWrapper(onSelected: { ids in
+            self.selectedIds = ids
+        }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: self.photosInRow)
+        
+        // set title to empty string, to force proper nav layout; otherwise,
+        // adding titleView through introspect adds extra space under it.
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarItems(leading: self.leadingButton(), trailing: self.trailingButton())
+        .introspectNavigationController { navigationController in
+            self.albumsViewModel.navigationController = navigationController
+            
+            let albumButton = UIButton(type: .system)
+            albumButton.semanticContentAttribute = .forceRightToLeft
+            albumButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+            albumButton.setTitleColor(albumButton.tintColor, for: .normal)
+            albumButton.setTitle("multi-imagepicker.nav.title.label".localized(), for: .normal)
+            albumButton.addTarget(self.albumsViewModel, action: #selector(AlbumsViewModel.albumsButtonPressed(_:)), for: .touchUpInside)
+            
+            navigationController.viewControllers.first?.navigationItem.titleView = albumButton
         }
     }
+    
+    private func leadingButton() -> some View {
+        return Button(action: {
+            self.isPresented = false
+        }, label: {
+            Text("cancel.label".localized())
+        })
+    }
+    
+    private func trailingButton() -> some View {
+        return Button(action: {
+            self.isPresented = false
+            self.onSelected(self.selectedIds)
+        }, label: {
+            Text("done.count.label".localized(withArguments: selectedIds.count)).bold()
+        }).disabled(selectedIds.count == 0)
+    }
 }
+
+#if DEBUG
+struct MultiImagePicker_Previews: PreviewProvider {
+    static var previews: some View {
+        MultiImagePicker(isPresented: .constant(true), onSelected: { _ in
+        })
+    }
+}
+#endif
