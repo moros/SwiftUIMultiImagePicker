@@ -42,6 +42,8 @@ public class AlbumsViewModel: ObservableObject {
         controller.selectedAssetCollection = self.selectedAssetCollection
         controller.delegate = self
         controller.onDismiss = {
+            controller.modalPresentationStyle = .none
+            controller.transitioningDelegate = nil
             self.rotateButtonArrow(sender)
         }
         
@@ -60,7 +62,9 @@ public class AlbumsViewModel: ObservableObject {
         controller.preferredContentSize = CGSize(width: frame.width * 0.75, height: height)
         rotateButtonArrow(sender)
         
-        self.navigationController?.present(controller, animated: true, completion: nil)
+        // DO NOT CHANGE animated to true; otherwise one may get a console message of:
+        //  Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0xXXXXX>.
+        self.navigationController?.present(controller, animated: false, completion: nil)
     }
     
     lazy var albums: [PHAssetCollection] = {
