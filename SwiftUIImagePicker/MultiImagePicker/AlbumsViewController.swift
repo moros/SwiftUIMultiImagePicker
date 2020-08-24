@@ -14,6 +14,7 @@ class AlbumsViewController: UIViewController {
     
     var onDismiss: (() -> Void)? = nil
     var albums: [PHAssetCollection] = []
+    var selectedAssetCollection: PHAssetCollection? = nil
     var configuration: DropdownConfiguration = DropdownConfiguration.shared
     
     private var dataSource: AlbumsTableViewDataSource?
@@ -56,8 +57,8 @@ class AlbumsViewController: UIViewController {
     }
     
     private func makeTableView() -> UITableView {
-        self.dataSource = AlbumsTableViewDataSource(albums: self.albums)
-        
+        self.dataSource = AlbumsTableViewDataSource(albums: self.albums, selectedAssetCollection: self.selectedAssetCollection)
+
         let tableView: UITableView = UITableView()
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.reuseId)
         tableView.dataSource = self.dataSource
@@ -80,6 +81,7 @@ extension AlbumsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = self.albums[indexPath.row]
+        self.selectedAssetCollection = album
         self.delegate?.albumsViewController(self, didSelectAlbum: album)
         self.dismiss(animated: true, completion: nil)
     }

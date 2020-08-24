@@ -16,16 +16,6 @@ class AlbumTableViewCell: UITableViewCell {
     
     let albumImageView: UIImageView = UIImageView(frame: .zero)
     let albumTitleLabel: UILabel = UILabel(frame: .zero)
-
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                accessoryType = .checkmark
-            } else {
-                accessoryType = .none
-            }
-        }
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

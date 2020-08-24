@@ -13,12 +13,14 @@ import UIKit
 class AlbumsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var assetSettings: AssetSettings = AssetSettings.shared
+    private var selectedAssetCollection: PHAssetCollection? = nil
     private let albums: [PHAssetCollection]
     private let scale: CGFloat
     private let imageManager = PHCachingImageManager.default()
     
-    init(albums: [PHAssetCollection], scale: CGFloat = UIScreen.main.scale) {
+    init(albums: [PHAssetCollection], selectedAssetCollection: PHAssetCollection? = nil, scale: CGFloat = UIScreen.main.scale) {
         self.albums = albums
+        self.selectedAssetCollection = selectedAssetCollection
         self.scale = scale
         super.init()
     }
@@ -37,6 +39,7 @@ class AlbumsTableViewDataSource: NSObject, UITableViewDataSource {
         let album = self.albums[indexPath.row]
         
         cell.albumTitleLabel.attributedText = self.title(forAlbum: album)
+        cell.accessoryType = self.selectedAssetCollection != nil && self.selectedAssetCollection == album ? .checkmark : .none
         
         let fetchOptions = self.assetSettings.fetchOptions.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
