@@ -58,6 +58,7 @@ public class ImagePickerViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        
     }
     
     private func setup() {
@@ -91,6 +92,10 @@ public class ImagePickerViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ImagePickerCollectionViewCell.self, forCellWithReuseIdentifier: ImagePickerCollectionViewCell.reuseId)
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(collectionViewLongPressed(_:)))
+        longPressRecognizer.minimumPressDuration = 0.5
+        collectionView.addGestureRecognizer(longPressRecognizer)
     }
     
     private func fetchPhotos(assetCollection: PHAssetCollection? = nil) {
@@ -110,6 +115,28 @@ public class ImagePickerViewController: UIViewController {
                 self?.collectionView?.reloadData()
             }
         }
+    }
+    
+    @objc func collectionViewLongPressed(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else {
+            return
+        }
+        
+        let location = sender.location(in: self.collectionView)
+        guard let indexPath = self.collectionView?.indexPathForItem(at: location) else {
+            return
+        }
+        guard let cell = self.collectionView?.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell else {
+            return
+        }
+        guard let asset = cell.photoAsset else {
+            return
+        }
+        
+        let previewController = PreviewViewController()
+        previewController.asset = asset
+        
+        self.present(previewController, animated: true, completion: nil)
     }
 }
 
