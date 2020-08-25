@@ -75,6 +75,7 @@ public class DropdownPresentationController: UIPresentationController {
     public override var frameOfPresentedViewInContainerView: CGRect {
         
         var frame = CGRect.zero
+        var triangleHeight = CGFloat(0)
         if let containerView = self.containerView {
             var newRect: CGRect
             
@@ -136,7 +137,7 @@ public class DropdownPresentationController: UIPresentationController {
             var x: CGFloat = 0
             var y: CGFloat = 0
             let arrowPoint: CGPoint
-            let triangleHeight = self.configuration.arrowSize.height
+            triangleHeight = self.configuration.arrowSize.height
             let cornerRadius = self.configuration.cornerRadius
             let backgroundViewWidth = frame.width + triangleHeight + cornerRadius * 2
             let backgroundViewHeight = frame.height + triangleHeight
@@ -196,7 +197,10 @@ public class DropdownPresentationController: UIPresentationController {
             }
         }
         
-        return frame
+        // This might be a bit of a hack but making sure the frame used by the presented view is slightly smaller
+        // than the background view's frame so content in presented view when scroll does not go out of bounds. Only
+        // applied to top, rest seem fine.
+        return frame.inset(by: UIEdgeInsets.init(top: triangleHeight + 8, left: .zero, bottom: .zero, right: .zero))
     }
     
     public override func presentationTransitionWillBegin() {
