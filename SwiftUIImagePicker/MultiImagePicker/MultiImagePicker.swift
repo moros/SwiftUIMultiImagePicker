@@ -72,6 +72,13 @@ struct MultiImagePicker: View {
     }
     
     private func makePickerView() -> some View {
+        
+        // Initially was trying to use onReceive to set album that's selected so that
+        // change will be forwarded to the wrapper in order to inform the underlying
+        // view controller of the selection. That however, resulted in rather weird
+        // behavior, perhaps sometime between SwiftUI and UIKit. At moment, passing
+        // actual albums' view model to wrapper to give to controller so that said
+        // controller can assign itself as the albums' delegate.
         return MultiImagePickerWrapper(viewModel: self.albumsViewModel, onSelected: { ids in
             self.selectedIds = ids
         }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: self.photosInRow)
