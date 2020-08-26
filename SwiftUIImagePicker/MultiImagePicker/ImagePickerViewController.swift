@@ -245,5 +245,6 @@ extension ImagePickerViewController: AlbumsViewControllerDelegate {
     
     func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
         self.selectedAssetCollection = ablum
+        self.viewModel?.selectedAssetCollection = ablum
     }
 }
