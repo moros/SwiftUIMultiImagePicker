@@ -16,12 +16,15 @@ public class AlbumsViewModel: ObservableObject {
     var albumSettings: AlbumSettings = AlbumSettings.shared
     var assetSettings: AssetSettings = AssetSettings.shared
     var navigationController: UINavigationController? = nil
+    weak var delegate: AlbumsViewControllerDelegate?
     private var transitionDelegate: DropdownTransitionDelegate? = nil
     
     public let objectWillChange = PassthroughSubject<PHAssetCollection, Never>()
     var selectedAssetCollection: PHAssetCollection? = nil {
         didSet {
+            print("albumsViewModel.selectedAssetCollection set")
             if selectedAssetCollection != nil {
+                print("albumsViewModel.selectedAssetCollection != nil")
                 objectWillChange.send(selectedAssetCollection!)
             }
         }
@@ -40,10 +43,11 @@ public class AlbumsViewModel: ObservableObject {
         let controller = AlbumsViewController()
         controller.albums = self.albums
         controller.selectedAssetCollection = self.selectedAssetCollection
-        controller.delegate = self
+        controller.delegate = self.delegate
         controller.onDismiss = {
             controller.modalPresentationStyle = .none
             controller.transitioningDelegate = nil
+            print("albumViewController being dismissed")
             self.rotateButtonArrow(sender)
         }
         
@@ -62,9 +66,7 @@ public class AlbumsViewModel: ObservableObject {
         controller.preferredContentSize = CGSize(width: frame.width * 0.75, height: height)
         rotateButtonArrow(sender)
         
-        // DO NOT CHANGE animated to true; otherwise one may get a console message of:
-        //  Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0xXXXXX>.
-        self.navigationController?.present(controller, animated: false, completion: nil)
+        self.navigationController?.viewControllers.first?.present(controller, animated: false, completion: nil)
     }
     
     lazy var albums: [PHAssetCollection] = {
@@ -106,9 +108,9 @@ public class AlbumsViewModel: ObservableObject {
     }
 }
 
-extension AlbumsViewModel: AlbumsViewControllerDelegate {
-    
-    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
-        self.selectedAssetCollection = ablum
-    }
-}
+//extension AlbumsViewModel: AlbumsViewControllerDelegate {
+//
+//    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
+//        self.selectedAssetCollection = ablum
+//    }
+//}

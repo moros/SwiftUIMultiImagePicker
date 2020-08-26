@@ -51,7 +51,10 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     ///
     @Binding var selectedAssetCollection: PHAssetCollection?
     
-    init(onSelected: @escaping AssetIdentifiersSelected, selectedAssetCollection: Binding<PHAssetCollection?>, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
+    var viewModel: AlbumsViewModel
+    
+    init(viewModel: AlbumsViewModel, onSelected: @escaping AssetIdentifiersSelected, selectedAssetCollection: Binding<PHAssetCollection?>, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
+        self.viewModel = viewModel
         self.onSelected = onSelected
         self._selectedAssetCollection = selectedAssetCollection
         
@@ -62,6 +65,7 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let picker = ImagePickerViewController()
+        picker.viewModel = self.viewModel
         picker.delegate = context.coordinator
         picker.maximumSelectionsAllowed = self.maximumSelectionsAllowed
         picker.numberOfPhotosInRow = self.photosInRow
@@ -76,10 +80,5 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
-        // Only trigger reload is selected asset collection is different
-        if self.selectedAssetCollection != uiViewController.selectedAssetCollection {
-            uiViewController.selectedAssetCollection = self.selectedAssetCollection
-        }
     }
 }

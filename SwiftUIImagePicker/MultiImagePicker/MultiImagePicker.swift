@@ -42,7 +42,7 @@ struct MultiImagePicker: View {
     
     /// Model object for getting `PHAssetCollection`s and selecting one.
     ///
-    @ObservedObject private var albumsViewModel = AlbumsViewModel()
+    @ObservedObject private var albumsViewModel: AlbumsViewModel
     
     /// The PHAsset localIdentifier's selected by user.
     ///
@@ -53,6 +53,7 @@ struct MultiImagePicker: View {
     @State private var selectedAssetCollection: PHAssetCollection? = nil
     
     init(isPresented: Binding<Bool> = .constant(true), onSelected: @escaping ([String]) -> (), usePhoneOnlyStackNavigation: Bool = false, wrapViewInNavigationView: Bool = false, photosInRow: Int = 4) {
+        self.albumsViewModel = AlbumsViewModel()
         self._isPresented = isPresented
         self.onSelected = onSelected
         self.usePhoneOnlyStackNavigation = usePhoneOnlyStackNavigation
@@ -71,7 +72,7 @@ struct MultiImagePicker: View {
     }
     
     private func makePickerView() -> some View {
-        return MultiImagePickerWrapper(onSelected: { ids in
+        return MultiImagePickerWrapper(viewModel: self.albumsViewModel, onSelected: { ids in
             self.selectedIds = ids
         }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: self.photosInRow)
         
@@ -92,10 +93,11 @@ struct MultiImagePicker: View {
             navigationController.viewControllers.first?.navigationItem.titleView = albumButton
         }
         .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
-        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
-            self.selectedIds = []
-            self.selectedAssetCollection = data
-        })
+//        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
+//            print("multiImagePicker.onReceive: changed selected asset collection")
+//            self.selectedIds = []
+//            self.selectedAssetCollection = data
+//        })
         .onDisappear {
             
             // when picker disappears either canceled tapped or view popped from navigation view

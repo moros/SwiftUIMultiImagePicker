@@ -33,8 +33,11 @@ public class ImagePickerViewController: UIViewController {
     /// Global asset settings object
     var assetSettings: AssetSettings = AssetSettings.shared
     
+    var viewModel: AlbumsViewModel? = nil
+    
     var selectedAssetCollection: PHAssetCollection? = nil {
         didSet {
+            print("imagePickerViewController.selectedAssetCollection set")
             self.selectedAssetIds = []
             self.fetchPhotos(assetCollection: selectedAssetCollection)
         }
@@ -57,8 +60,9 @@ public class ImagePickerViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         
+        self.viewModel?.delegate = self
+        setup()
     }
     
     private func setup() {
@@ -99,6 +103,7 @@ public class ImagePickerViewController: UIViewController {
     }
     
     private func fetchPhotos(assetCollection: PHAssetCollection? = nil) {
+        print("imagePickerViewController.fetchPhotos triggered")
         requestPhotoAccessIfNeeded(PHPhotoLibrary.authorizationStatus())
         
         photoAssets = assetCollection == nil
@@ -233,5 +238,12 @@ extension ImagePickerViewController: UICollectionViewDataSource {
     ///
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoAssets.count
+    }
+}
+
+extension ImagePickerViewController: AlbumsViewControllerDelegate {
+    
+    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
+        self.selectedAssetCollection = ablum
     }
 }
