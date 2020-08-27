@@ -3,19 +3,18 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import Photos
 import UIKit
 
-class AlbumsViewController: UIViewController {
+internal class AlbumsViewController: UIViewController {
     
     var onDismiss: (() -> Void)? = nil
     var albums: [PHAssetCollection] = []
     var selectedAssetCollection: PHAssetCollection? = nil
-    var configuration: DropdownConfiguration = DropdownConfiguration.shared
+    var configuration: PopoverConfiguration = PopoverConfiguration.shared
     
     private var dataSource: AlbumsTableViewDataSource?
     private weak var tableView: UITableView!

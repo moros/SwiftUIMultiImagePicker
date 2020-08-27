@@ -3,15 +3,14 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class DropdownConfiguration {
+internal class PopoverConfiguration {
     
-    static let shared = DropdownConfiguration()
+    static let shared = PopoverConfiguration()
     private init() {
     }
     

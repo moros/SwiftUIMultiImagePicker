@@ -3,17 +3,16 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class DropdownBackgroundView: UIView {
+internal class PopoverBackgroundView: UIView {
     
     var arrowPoint: CGPoint = .zero
-    var arrowDirection: DropdownPresentationController.ArrowDirection = .up
-    var configuration: DropdownConfiguration = DropdownConfiguration.shared
+    var arrowDirection: PopoverPresentationController.ArrowDirection = .up
+    var configuration: PopoverConfiguration = PopoverConfiguration.shared
     var arrowColor: UIColor?
     
     override init(frame: CGRect) {

@@ -3,12 +3,17 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/24/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import Photos
 
-protocol AlbumsViewControllerDelegate: class {
-    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection)
+internal protocol AlbumsViewControllerDelegate: class {
+    
+    /// Informs listener of `PHAssetCollection` that was selected by the user.
+    ///
+    /// - Parameter viewController: the `AlbumsViewController`
+    /// - Parameter album: `PHAssetCollection` selected
+    ///
+    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection)
 }

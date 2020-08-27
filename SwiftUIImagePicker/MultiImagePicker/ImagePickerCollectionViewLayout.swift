@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImagePickerCollectionViewLayout: UICollectionViewLayout {
+internal class ImagePickerCollectionViewLayout: UICollectionViewLayout {
 
     let numberOfItemsAcross: Int
     var minimumInteritemSpacing: CGFloat
@@ -35,7 +35,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     
     /// Prepare the layout
     ///
-    open override func prepare() {
+    override func prepare() {
         updateItemSizes()
     }
     
@@ -44,7 +44,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     /// - Parameter newBounds: the new bounds
     /// - Returns: Returns a `Bool` telling should invalidate layout
     ///
-    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
@@ -53,7 +53,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     /// - Parameter indexPath: the `IndexPath`
     /// - Returns: Returns layout attributes
     ///
-    open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return cellLayoutInfo[indexPath]
     }
     
@@ -62,7 +62,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     /// - Parameter rect: the Rect
     /// - Returns: Returns a list of layout attributes
     ///
-    open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let collectionView = self.collectionView else { return nil }
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
         return cellLayoutInfo.filter { (indexPath, layoutAttribute) -> Bool in
@@ -73,7 +73,7 @@ class ImagePickerCollectionViewLayout: UICollectionViewLayout {
     /// these values represent the width and height of all the content,
     /// not just the content that is currently visible.
     ///
-    open override var collectionViewContentSize: CGSize {
+    override var collectionViewContentSize: CGSize {
         guard let collectionView = self.collectionView else { return CGSize.zero }
         
         guard numberOfItemsAcross > 0 else { return CGSize.zero }

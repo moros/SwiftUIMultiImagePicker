@@ -3,13 +3,12 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-public class DropdownPresentationController: UIPresentationController {
+internal class PopoverPresentationController: UIPresentationController {
     
     public enum ArrowDirection {
         case up
@@ -19,10 +18,10 @@ public class DropdownPresentationController: UIPresentationController {
     }
     
     fileprivate(set) var anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5)
-    fileprivate let backgroundView = DropdownBackgroundView()
+    fileprivate let backgroundView = PopoverBackgroundView()
     fileprivate var backgroundViewRect = CGRect.zero
     fileprivate var arrowPoint = CGPoint.zero
-    var configuration = DropdownConfiguration.shared {
+    var configuration = PopoverConfiguration.shared {
         didSet {
             self.backgroundView.configuration = configuration
         }
@@ -235,7 +234,7 @@ public class DropdownPresentationController: UIPresentationController {
             anchorPoint = CGPoint(x: 1, y: converArrowPoint.y / backgroundView.frame.height)
         }
          
-        backgroundView.dropdown.resetFrameAfterSet(anchorPoint: anchorPoint)
+        backgroundView.popover.resetFrameAfterSet(anchorPoint: anchorPoint)
         self.anchorPoint = anchorPoint
         switch self.configuration.animation {
         case .scale:

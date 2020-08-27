@@ -3,13 +3,12 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class DropdownAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+internal class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     enum AnimationContext {
         case present
@@ -17,10 +16,10 @@ class DropdownAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     private let context: AnimationContext
-    fileprivate var presentationController: DropdownPresentationController?
-    fileprivate let animation: DropdownConfiguration.Animation
+    fileprivate var presentationController: PopoverPresentationController?
+    fileprivate let animation: PopoverConfiguration.Animation
     
-    init(context: AnimationContext, animation: DropdownConfiguration.Animation) {
+    init(context: AnimationContext, animation: PopoverConfiguration.Animation) {
         self.context = context
         self.animation = animation
         super.init()

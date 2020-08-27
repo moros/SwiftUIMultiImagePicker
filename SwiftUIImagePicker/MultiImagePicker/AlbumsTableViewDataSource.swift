@@ -3,14 +3,13 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/24/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import Photos
 import UIKit
 
-class AlbumsTableViewDataSource: NSObject, UITableViewDataSource {
+internal class AlbumsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var assetSettings: AssetSettings = AssetSettings.shared
     private var selectedAssetCollection: PHAssetCollection? = nil

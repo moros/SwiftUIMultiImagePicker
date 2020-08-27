@@ -13,7 +13,7 @@ import UIKit
 /// An image picker that shows and allows multiple selection of photos
 /// using the Photos library.
 ///
-struct MultiImagePicker: View {
+public struct MultiImagePicker: View {
     
     /// Used for triggering re-render of view.
     ///
@@ -42,7 +42,7 @@ struct MultiImagePicker: View {
     
     /// Model object for getting `PHAssetCollection`s and selecting one.
     ///
-    @ObservedObject private var albumsViewModel: AlbumsViewModel
+    private var albumsViewModel: AlbumsViewModel
     
     /// The PHAsset localIdentifier's selected by user.
     ///
@@ -61,7 +61,7 @@ struct MultiImagePicker: View {
         self.photosInRow = photosInRow
     }
     
-    var body: some View {
+    public var body: some View {
         if !self.wrapViewInNavigationView {
             return AnyView(self.makePickerView())
         }
@@ -72,16 +72,9 @@ struct MultiImagePicker: View {
     }
     
     private func makePickerView() -> some View {
-        
-        // Initially was trying to use onReceive to set album that's selected so that
-        // change will be forwarded to the wrapper in order to inform the underlying
-        // view controller of the selection. That however, resulted in rather weird
-        // behavior, perhaps sometime between SwiftUI and UIKit. At moment, passing
-        // actual albums' view model to wrapper to give to controller so that said
-        // controller can assign itself as the albums' delegate.
-        return MultiImagePickerWrapper(viewModel: self.albumsViewModel, onSelected: { ids in
+        return MultiImagePickerWrapper(albumsViewModel: self.albumsViewModel, onSelected: { ids in
             self.selectedIds = ids
-        }, selectedAssetCollection: self.$selectedAssetCollection, photosInRow: self.photosInRow)
+        }, photosInRow: self.photosInRow)
         
         // set title to empty string, to force proper nav layout; otherwise,
         // adding titleView through introspect adds extra space under it.
@@ -100,11 +93,6 @@ struct MultiImagePicker: View {
             navigationController.viewControllers.first?.navigationItem.titleView = albumButton
         }
         .phoneOnlyStackNavigationView(enable: self.usePhoneOnlyStackNavigation)
-//        .onReceive(self.albumsViewModel.objectWillChange, perform: { data in
-//            print("multiImagePicker.onReceive: changed selected asset collection")
-//            self.selectedIds = []
-//            self.selectedAssetCollection = data
-//        })
         .onDisappear {
             
             // when picker disappears either canceled tapped or view popped from navigation view

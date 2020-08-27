@@ -3,7 +3,6 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/20/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Combine
@@ -11,30 +10,31 @@ import Foundation
 import Photos
 import UIKit
 
-public class AlbumsViewModel: ObservableObject {
+internal class AlbumsViewModel {
     
+    /// Various settings for fetching albums.
+    ///
     var albumSettings: AlbumSettings = AlbumSettings.shared
+    
+    /// Various settings for fetching assets.
+    ///
     var assetSettings: AssetSettings = AssetSettings.shared
+    
+    /// Controller provided to model to allow nav bar title button to present album controller.
+    ///
     var navigationController: UINavigationController? = nil
+    
+    /// Delegate informing listener of album (asset collection) that was selected by the user.
+    ///
     weak var delegate: AlbumsViewControllerDelegate?
-    private var transitionDelegate: DropdownTransitionDelegate? = nil
     
-    public let objectWillChange = PassthroughSubject<PHAssetCollection, Never>()
-    var selectedAssetCollection: PHAssetCollection? = nil {
-        didSet {
-            if selectedAssetCollection != nil {
-                objectWillChange.send(selectedAssetCollection!)
-            }
-        }
-    }
+    /// Album that was selected.
+    ///
+    var selectedAssetCollection: PHAssetCollection? = nil
     
-    var isLandscape: Bool {
-        return UIApplication.shared.windows
-            .first?
-            .windowScene?
-            .interfaceOrientation
-            .isLandscape ?? false
-    }
+    /// Transitioning delegate used to present album controller as a popover iPad style view.
+    ///
+//    private var transitionDelegate: PopoverTransitionDelegate? = nil
     
     @objc func albumsButtonPressed(_ sender: UIButton) {
 
@@ -43,30 +43,24 @@ public class AlbumsViewModel: ObservableObject {
         controller.selectedAssetCollection = self.selectedAssetCollection
         controller.delegate = self.delegate
         controller.onDismiss = {
-            controller.modalPresentationStyle = .none
-            controller.transitioningDelegate = nil
+            controller.popover.enablePopover = false
             self.rotateButtonArrow(sender)
         }
         
-        let delegate = DropdownTransitionDelegate()
-        
         let window: UIWindow? = UIApplication.shared.windows.first
-        delegate.sourceView = sender
-        delegate.sourceRect = sender.convert(sender.bounds, to: window)
-        self.transitionDelegate = delegate
-        
-        controller.modalPresentationStyle = .custom
-        controller.transitioningDelegate = self.transitionDelegate
-        
+        controller.popover.enablePopover = true
+        controller.popover.popoverPresentationController?.sourceView = sender
+        controller.popover.popoverPresentationController?.sourceRect = sender.convert(sender.bounds, to: window)
+
         let frame = window?.frame ?? CGRect.zero
         let height = frame.height * (self.isLandscape ? 0.75 : 0.5)
         controller.preferredContentSize = CGSize(width: frame.width * 0.75, height: height)
         rotateButtonArrow(sender)
         
-        self.navigationController?.viewControllers.first?.present(controller, animated: false, completion: nil)
+        self.navigationController?.viewControllers.first?.present(controller, animated: true, completion: nil)
     }
     
-    lazy var albums: [PHAssetCollection] = {
+    private lazy var albums: [PHAssetCollection] = {
         
         // We don't want collections without assets.
         // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
@@ -94,6 +88,14 @@ public class AlbumsViewModel: ObservableObject {
         }
     }
     
+    private var isLandscape: Bool {
+        return UIApplication.shared.windows
+            .first?
+            .windowScene?
+            .interfaceOrientation
+            .isLandscape ?? false
+    }
+    
     private func rotateButtonArrow(_ button: UIButton) {
         UIView.animate(withDuration: 0.3) {
             guard let imageView = button.imageView else {
@@ -104,10 +106,3 @@ public class AlbumsViewModel: ObservableObject {
         }
     }
 }
-
-//extension AlbumsViewModel: AlbumsViewControllerDelegate {
-//
-//    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
-//        self.selectedAssetCollection = ablum
-//    }
-//}

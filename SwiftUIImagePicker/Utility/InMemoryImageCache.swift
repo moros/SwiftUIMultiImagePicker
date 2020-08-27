@@ -3,13 +3,12 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/19/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class InMemoryImageCache {
+internal class InMemoryImageCache {
     
     static let shared = InMemoryImageCache()
     private let cache: NSCache<NSString, UIImage>

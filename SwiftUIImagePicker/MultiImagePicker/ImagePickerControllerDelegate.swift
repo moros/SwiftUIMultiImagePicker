@@ -8,11 +8,12 @@
 import Photos
 import UIKit
 
-@objc public protocol ImagePickerControllerDelegate: class {
+@objc internal protocol ImagePickerControllerDelegate: class {
     
     /// Provides an array of `PHAsset`s selected.
     ///
     /// - Parameter picker: the `ImagePickerViewController`
     /// - Parameter identifiers: the array of `PHAsset.localIdentifier` strings.
+    ///
     @objc optional func imagePicker(_ picker: ImagePickerViewController, didPickAssetIdentifiers identifiers: [String])
 }

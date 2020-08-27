@@ -10,7 +10,7 @@ import Photos
 import SwiftUI
 import UIKit
 
-public class ImagePickerViewController: UIViewController {
+internal class ImagePickerViewController: UIViewController {
     
     /// Delegate for Image Picker. Notifies when images are selected (done is tapped) or when the Image Picker is cancelled.
     ///
@@ -33,8 +33,13 @@ public class ImagePickerViewController: UIViewController {
     /// Global asset settings object
     var assetSettings: AssetSettings = AssetSettings.shared
     
-    var viewModel: AlbumsViewModel? = nil
+    /// ViewModel for Albums so that the underlying image picker view controller can be notified
+    /// when user selects a particular album.
+    ///
+    var albumsViewModel: AlbumsViewModel? = nil
     
+    /// Album (asset collection) that was selected by the user.
+    ///
     var selectedAssetCollection: PHAssetCollection? = nil {
         didSet {
             self.selectedAssetIds = []
@@ -60,7 +65,7 @@ public class ImagePickerViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel?.delegate = self
+        self.albumsViewModel?.delegate = self
         setup()
     }
     
@@ -77,7 +82,6 @@ public class ImagePickerViewController: UIViewController {
         constraints += [view.constraintEqualTo(with: collectionView, attribute: .top)]
         constraints += [view.constraintEqualTo(with: collectionView, attribute: .right)]
         
-        //Lower priority to override left constraint for animations
         let leftCollectionViewConstraint = view.constraintEqualTo(with: collectionView, attribute: .left)
         leftCollectionViewConstraint.priority = UILayoutPriority(rawValue: 999)
         constraints += [leftCollectionViewConstraint]
@@ -145,11 +149,6 @@ public class ImagePickerViewController: UIViewController {
 
 extension ImagePickerViewController: UICollectionViewDelegate {
     
-    /// Collection View did select item at `IndexPath`
-    ///
-    /// - Parameter collectionView: the `UICollectionView`
-    /// - Parameter indexPath: the `IndexPath`
-    ///
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell else {
             return
@@ -162,11 +161,6 @@ extension ImagePickerViewController: UICollectionViewDelegate {
         self.delegate?.imagePicker?(self, didPickAssetIdentifiers: self.selectedAssetIds)
     }
     
-    /// Collection View did de-select item at `IndexPath`
-    ///
-    /// - Parameter collectionView: the `UICollectionView`
-    /// - Parameter indexPath: the `IndexPath`
-    ///
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell else {
             return
@@ -182,14 +176,6 @@ extension ImagePickerViewController: UICollectionViewDelegate {
         self.delegate?.imagePicker?(self, didPickAssetIdentifiers: self.selectedAssetIds)
     }
     
-    /// When user tries to select content, this method is triggered
-    /// to determine if user can select item at the specified index
-    /// path.
-    ///
-    /// - Parameter collectionView: the `UICollectionView`
-    /// - Parameter indexPath: the `IndexPath`
-    /// - Returns: Returns the boolean indicating whether item will be selected.
-    ///
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImagePickerCollectionViewCell,
             cell.imageView.image != nil else { return false }
@@ -211,12 +197,6 @@ extension ImagePickerViewController: UICollectionViewDelegate {
 
 extension ImagePickerViewController: UICollectionViewDataSource {
     
-    /// Returns Collection View Cell for item at `IndexPath`
-    ///
-    /// - Parameter collectionView: the `UICollectionView`
-    /// - Parameter indexPath: the `IndexPath`
-    /// - Returns: Returns the `UICollectionViewCell`
-    ///
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let layoutAttributes = collectionView.collectionViewLayout.layoutAttributesForItem(at: indexPath),
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagePickerCollectionViewCell.reuseId, for: indexPath) as? ImagePickerCollectionViewCell else { return UICollectionViewCell() }
@@ -228,12 +208,6 @@ extension ImagePickerViewController: UICollectionViewDataSource {
         return cell
     }
     
-    /// Returns the number of items in a given section
-    ///
-    /// - Parameter collectionView: the `UICollectionView`
-    /// - Parameter section: the given section of the `UICollectionView`
-    /// - Returns: Returns an `Int` for the number of rows.
-    ///
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoAssets.count
     }
@@ -241,8 +215,8 @@ extension ImagePickerViewController: UICollectionViewDataSource {
 
 extension ImagePickerViewController: AlbumsViewControllerDelegate {
     
-    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum ablum: PHAssetCollection) {
-        self.selectedAssetCollection = ablum
-        self.viewModel?.selectedAssetCollection = ablum
+    func albumsViewController(_ viewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection) {
+        self.selectedAssetCollection = album
+        self.albumsViewModel?.selectedAssetCollection = album
     }
 }

@@ -10,20 +10,7 @@ import Photos
 import SwiftUI
 import UIKit
 
-typealias AssetIdentifiersSelected = ([String]) -> Void
-
-internal class ImagePickerCordinator: NSObject, ImagePickerControllerDelegate {
-    
-    let selectedIdentifiers: AssetIdentifiersSelected
-    
-    init(selectedIdentifiers: @escaping AssetIdentifiersSelected) {
-        self.selectedIdentifiers = selectedIdentifiers
-    }
-    
-    func imagePicker(_ picker: ImagePickerViewController, didPickAssetIdentifiers identifiers: [String]) {
-        self.selectedIdentifiers(identifiers)
-    }
-}
+internal typealias AssetIdentifiersSelected = ([String]) -> Void
 
 internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     
@@ -47,17 +34,14 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     ///
     var imageMinimumInteritemSpacing: CGFloat = 6
     
-    /// The selected PHAssetCollection if so chooses to filter by album their list of photos.
+    /// ViewModel for Albums so that the underlying image picker view controller can be notified
+    /// when user selects a particular album.
     ///
-    @Binding var selectedAssetCollection: PHAssetCollection?
+    private var albumsViewModel: AlbumsViewModel
     
-    var viewModel: AlbumsViewModel
-    
-    init(viewModel: AlbumsViewModel, onSelected: @escaping AssetIdentifiersSelected, selectedAssetCollection: Binding<PHAssetCollection?>, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
-        self.viewModel = viewModel
+    init(albumsViewModel: AlbumsViewModel, onSelected: @escaping AssetIdentifiersSelected, maximumSelectionsAllowed: Int = -1, photosInRow: Int = 3, imageMinimumInteritemSpacing: CGFloat = 6) {
+        self.albumsViewModel = albumsViewModel
         self.onSelected = onSelected
-        self._selectedAssetCollection = selectedAssetCollection
-        
         self.maximumSelectionsAllowed = maximumSelectionsAllowed
         self.photosInRow = photosInRow
         self.imageMinimumInteritemSpacing = imageMinimumInteritemSpacing
@@ -65,12 +49,11 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let picker = ImagePickerViewController()
-        picker.viewModel = self.viewModel
+        picker.albumsViewModel = self.albumsViewModel
         picker.delegate = context.coordinator
         picker.maximumSelectionsAllowed = self.maximumSelectionsAllowed
         picker.numberOfPhotosInRow = self.photosInRow
         picker.imageMinimumInteritemSpacing = self.imageMinimumInteritemSpacing
-        picker.selectedAssetCollection = self.selectedAssetCollection
         
         return picker
     }
@@ -80,5 +63,18 @@ internal struct MultiImagePickerWrapper: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+    
+    internal class ImagePickerCordinator: NSObject, ImagePickerControllerDelegate {
+        
+        let selectedIdentifiers: AssetIdentifiersSelected
+        
+        init(selectedIdentifiers: @escaping AssetIdentifiersSelected) {
+            self.selectedIdentifiers = selectedIdentifiers
+        }
+        
+        func imagePicker(_ picker: ImagePickerViewController, didPickAssetIdentifiers identifiers: [String]) {
+            self.selectedIdentifiers(identifiers)
+        }
     }
 }

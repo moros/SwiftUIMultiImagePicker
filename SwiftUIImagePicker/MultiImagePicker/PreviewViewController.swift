@@ -3,14 +3,13 @@
 //  SwiftUIImagePicker
 //
 //  Created by dmason on 8/25/20.
-//  Copyright © 2020 United Fire Group. All rights reserved.
 //
 
 import CoreLocation
 import Photos
 import UIKit
 
-class PreviewViewController: UIViewController {
+internal class PreviewViewController: UIViewController {
     
     private let imageManager = PHCachingImageManager.default()
     private let scrollView = UIScrollView(frame: .zero)

@@ -8,7 +8,7 @@
 import Photos
 import UIKit
 
-class ImagePickerCollectionViewCell: UICollectionViewCell {
+internal class ImagePickerCollectionViewCell: UICollectionViewCell {
     
     static let scale: CGFloat = 3
     static let reuseId = String(describing: ImagePickerCollectionViewCell.self)
@@ -79,7 +79,6 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
         manager.cancelImageRequest(imageRequestID)
         self.imageRequestID = nil
         
-        //Remove selection
         setSelected(false, animated: false)
     }
     
@@ -135,7 +134,7 @@ class ImagePickerCollectionViewCell: UICollectionViewCell {
 
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
         backgroundColor.setFill()
-        //UIRectFill(CGRect(origin: .zero, size: image.size))
+        
         let rect = CGRect(origin: .zero, size: image.size)
         let path = UIBezierPath(arcCenter: CGPoint(x:rect.midX, y:rect.midY), radius: rect.midX, startAngle: 0, endAngle: 6.28319, clockwise: true)
         path.fill()
