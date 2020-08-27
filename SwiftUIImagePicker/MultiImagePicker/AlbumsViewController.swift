@@ -88,5 +88,6 @@ extension AlbumsViewController: UITableViewDelegate {
         print("albumViewController: triggering dismiss")
         print("onDismiss callback: \(self.onDismiss == nil ? "onDismiss is nil" : "onDismiss not nil")")
         self.dismiss(animated: true, completion: nil)
+        self.navigationController?.viewControllers.first?.dismiss(animated: true, completion: nil)
     }
 }
