@@ -37,7 +37,6 @@ public class ImagePickerViewController: UIViewController {
     
     var selectedAssetCollection: PHAssetCollection? = nil {
         didSet {
-            print("imagePickerViewController.selectedAssetCollection set")
             self.selectedAssetIds = []
             self.fetchPhotos(assetCollection: selectedAssetCollection)
         }
@@ -103,7 +102,6 @@ public class ImagePickerViewController: UIViewController {
     }
     
     private func fetchPhotos(assetCollection: PHAssetCollection? = nil) {
-        print("imagePickerViewController.fetchPhotos triggered")
         requestPhotoAccessIfNeeded(PHPhotoLibrary.authorizationStatus())
         
         photoAssets = assetCollection == nil

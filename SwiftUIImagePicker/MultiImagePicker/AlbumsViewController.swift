@@ -81,12 +81,8 @@ extension AlbumsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = self.albums[indexPath.row]
-        print("album selected: \(album.localizedTitle ?? "")")
         self.selectedAssetCollection = album
         self.delegate?.albumsViewController(self, didSelectAlbum: album)
-        
-        print("albumViewController: triggering dismiss")
-        print("onDismiss callback: \(self.onDismiss == nil ? "onDismiss is nil" : "onDismiss not nil")")
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.viewControllers.first?.dismiss(animated: true, completion: nil)
     }

@@ -22,9 +22,7 @@ public class AlbumsViewModel: ObservableObject {
     public let objectWillChange = PassthroughSubject<PHAssetCollection, Never>()
     var selectedAssetCollection: PHAssetCollection? = nil {
         didSet {
-            print("albumsViewModel.selectedAssetCollection set")
             if selectedAssetCollection != nil {
-                print("albumsViewModel.selectedAssetCollection != nil")
                 objectWillChange.send(selectedAssetCollection!)
             }
         }
@@ -47,7 +45,6 @@ public class AlbumsViewModel: ObservableObject {
         controller.onDismiss = {
             controller.modalPresentationStyle = .none
             controller.transitioningDelegate = nil
-            print("albumViewController being dismissed")
             self.rotateButtonArrow(sender)
         }
         
